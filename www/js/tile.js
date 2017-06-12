@@ -9,6 +9,7 @@ function Tile(game) {
     this.colors = {
         disabled: 0x000000,
         toggled: 0xe8795e,
+        selected: 0xdcdcdc,
         normal: 0xffffff
     };
 
@@ -28,6 +29,18 @@ Tile.prototype.disable = function() {
     this.isDisabled = true;
     this.canToggle = false;
     this.colorize(this.colors.disabled);
+};
+
+Tile.prototype.select = function() {
+    if (!this.isDisabled && this.canToggle) {
+        this.colorize(this.colors.selected);
+    }
+};
+
+Tile.prototype.unselect = function() {
+    if (!this.isDisabled && this.canToggle) {
+        this.colorize(this.isToggled ? this.colors.toggled : this.colors.normal);
+    }
 };
 
 Tile.prototype.toggle = function() {

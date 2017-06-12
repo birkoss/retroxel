@@ -105,12 +105,15 @@ Grid.prototype.getTileFromPointer = function(pointer) {
 
 Grid.prototype.selectTile = function(Grid, pointer) {
     this.selectedTile = this.getTileFromPointer(pointer);
+    this.selectedTile.select();
 };
 
 Grid.prototype.toggleTile = function(grid, pointer) {
     if (this.selectedTile != null) {
         if (this.selectedTile == this.getTileFromPointer(pointer)) {
             this.selectedTile.toggle();
+        } else {
+            this.selectedTile.unselect();
         }
 
         this.selectedTile = null;
