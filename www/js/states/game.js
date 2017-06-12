@@ -66,15 +66,31 @@ GAME.Game.prototype = {
             }, this);
         }, this);
 
-        console.log(newTiles);
-        /*
-        tiles.forEach(function(tile) {
-            this.map.tiles[tile.gridY][tile.gridX].colorize(0xf7c200);
+        /* Find NEW tiles to highlight */
+        newTiles.forEach(function(tile) {
+            let isNew = true;
+            existingTiles.forEach(function(oldTile) {
+                if (oldTile.gridX == tile.gridX && oldTile.gridY == tile.gridY) {
+                    isNew = false;
+                }
+            }, this);
+            if (isNew) {
+                this.map.tiles[tile.gridY][tile.gridX].colorize(this.map.colors.lighted);
+            }
         }, this);
-        console.log(tiles);
-        */
-        // Get all value from axis until out of bounds OR disabled
-        // - Highlight all empty tile
+
+        /* Find OLD tiles to return to normal */
+        existingTiles.forEach(function(tile) {
+            let isRemoved = true;
+            newTiles.forEach(function(newTile) {
+                if (newTile.gridX == tile.gridX && newTile.gridY == tile.gridY) {
+                    isRemoved = false;
+                }
+            }, this);
+            if (isRemoved) {
+                this.map.tiles[tile.gridY][tile.gridX].colorize(this.map.colors.normal);
+            }
+        }, this);
     },
     lightTile: function(tile) {
         let tiles = [];
@@ -95,7 +111,7 @@ GAME.Game.prototype = {
                         neighboor.enable = false;
                     }
 
-                    if (neighboor.enable && !this.map.tiles[nY][nY].isToggled) {
+                    if (neighboor.enable && !this.map.tiles[nY][nX].isToggled) {
                         tiles.push({gridX:nX, gridY:nY});
                     }
                 }
