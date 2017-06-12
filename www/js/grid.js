@@ -20,6 +20,8 @@ function Grid(game, puzzle) {
     this.createBackground();
 
     this.tilesContainer.x = this.tilesContainer.y = this.padding;
+
+    this.onTileToggled = new Phaser.Signal();
 };
 
 Grid.prototype = Object.create(Phaser.Group.prototype);
@@ -101,6 +103,10 @@ Grid.prototype.getTileFromPointer = function(pointer) {
     return null;
 };
 
+Grid.prototype.isInBound = function(gridX, gridY) {
+    return !(gridX < 0 || gridY < 0 || gridX >= this.gridWidth || gridY >= this.gridHeight);
+};
+
 /* Events */
 
 Grid.prototype.selectTile = function(Grid, pointer) {
@@ -112,6 +118,7 @@ Grid.prototype.toggleTile = function(grid, pointer) {
     if (this.selectedTile != null) {
         if (this.selectedTile == this.getTileFromPointer(pointer)) {
             this.selectedTile.toggle();
+            this.onTileToggled.dispatch(this.selectedTile);
         } else {
             this.selectedTile.unselect();
         }

@@ -33,6 +33,7 @@ GAME.Game.prototype = {
         };
 
         this.map = new Grid(this.game, puzzle);
+        this.map.onTileToggled.add(this.onMapTileToggled, this);
         this.mapContainer.addChild(this.map);
 
         this.mapContainer.x = (this.game.width - this.mapContainer.width) / 2;
@@ -46,5 +47,35 @@ GAME.Game.prototype = {
     /* Events */
     onPanelToggleButtonClicked: function(state) {
         this.map.simulate();
+    },
+    onMapTileToggled: function(tile) {
+        let tiles = [];
+
+        let neighboors = [{gridX:0, gridY:1, enable:true}, {gridX:0, gridY:-1, enable:true}, {gridX:1, gridY:0, enable:true}, {gridX:-1, gridY:0, enable:true}];
+        let nX, nY = 0;
+        for (let i=1; i<Math.max(this.map.gridWidth, this.map.gridHeight); i++) {
+            neighboors.forEach(function(neighboor) {
+                if (neighboor.enable) {
+                    nX = tile.gridX + (i * neighboor.gridX);
+                    nY = tile.gridY + (i * neighboor.gridY);
+
+                    if (!this.map.isInBound(nX, nY)) {
+                        neighboor.enable = false;
+                    }
+
+                    if (neighboor.enable && this.map.tiles[nY][nX].isDisabled) {
+                        neighboor.enable = false;
+                    }
+
+                    if (neighboor.enable) {
+                        tiles.push({gridX:nX, gridY:nY});
+                    }
+                }
+            }, this);
+        }
+
+        console.log(tiles);
+        // Get all value from axis until out of bounds OR disabled
+        // - Highlight all empty tile
     }
 };
