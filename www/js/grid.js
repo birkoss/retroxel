@@ -6,9 +6,11 @@ function Grid(game, puzzle) {
     this.gridHeight = puzzle.gridHeight;
 
     this.tiles = [];
+    this.selectedTile = null;
 
     this.backgroundContainer = this.game.add.group();
     this.add(this.backgroundContainer);
+
     this.tilesContainer = this.game.add.group();
     this.add(this.tilesContainer);
 
@@ -31,7 +33,7 @@ Grid.prototype.createBackground = function() {
 
     background.inputEnabled = true;
     background.events.onInputDown.add(this.selectTile, this);
-    //background.events.onInputUp.add(this.toggleTile, this);
+    background.events.onInputUp.add(this.toggleTile, this);
 };
 
 Grid.prototype.createGrid = function() {
@@ -49,12 +51,15 @@ Grid.prototype.createGrid = function() {
         this.tiles.push(rows);
     }
 
-    if (this.puzzle.tiles != undefined) {
-        this.puzzle.tiles.forEach(function(tile) {
-            this.tiles[tile.gridY][tile.gridX].toggle();
-            if (tile.label != undefined) {
-                this.tiles[tile.gridY][tile.gridX].setLabel(tile.label);
-            }
+    if (this.puzzle.disabledTiles != undefined) {
+        this.puzzle.disabledTiles.forEach(function(tile) {
+            this.tiles[tile.gridY][tile.gridX].disable();
+        }, this);
+    }
+
+    if (this.puzzle.labels != undefined) {
+        this.puzzle.labels.forEach(function(label) {
+            this.tiles[label.gridY][label.gridX].setLabel(label.text);
         }, this);
     }
 };
@@ -79,9 +84,7 @@ Grid.prototype.getNeighboors = function(gridX, gridY, isAlive) {
     return total;
 };
 
-/* Events */
-
-Grid.prototype.selectTile = function(Grid, pointer) {
+Grid.prototype.getTileFromPointer = function(pointer) {
     let x = pointer.x;
     let y = pointer.y;
     if (this.parent != undefined) {
@@ -92,7 +95,24 @@ Grid.prototype.selectTile = function(Grid, pointer) {
     let gridX = Math.floor((x-this.padding) / (this.tiles[0][0].width+this.padding));
     let gridY = Math.floor((y-this.padding) / (this.tiles[0][0].height+this.padding));
     if (gridX >= 0 && gridX < this.gridWidth && gridY >= 0 && gridY < this.gridHeight) {
-        this.tiles[gridY][gridX].toggle();
-        console.log(gridX + "x" + gridY);
+        return this.tiles[gridY][gridX];
+    }
+
+    return null;
+};
+
+/* Events */
+
+Grid.prototype.selectTile = function(Grid, pointer) {
+    this.selectedTile = this.getTileFromPointer(pointer);
+};
+
+Grid.prototype.toggleTile = function(grid, pointer) {
+    if (this.selectedTile != null) {
+        if (this.selectedTile == this.getTileFromPointer(pointer)) {
+            this.selectedTile.toggle();
+        }
+
+        this.selectedTile = null;
     }
 };

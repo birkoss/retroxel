@@ -17,12 +17,18 @@ GAME.Game.prototype = {
         let puzzle = {
             gridWidth: 5,
             gridHeight: 5,
-            tiles: [
-                {gridX:0, gridY:1, label:1},
-                {gridX:0, gridY:2, label:2},
-                {gridX:2, gridY:2, label:3},
+            labels: [
+                {gridX:0, gridY:1, text:1},
+                {gridX:0, gridY:2, text:2},
+                {gridX:2, gridY:2, text:3},
+                {gridX:1, gridY:3, text:4},
+            ],
+            disabledTiles: [
+                {gridX:0, gridY:1},
+                {gridX:0, gridY:2},
+                {gridX:2, gridY:2},
                 {gridX:3, gridY:2},
-                {gridX:1, gridY:3, label:4},
+                {gridX:1, gridY:3},
             ]
         };
 
