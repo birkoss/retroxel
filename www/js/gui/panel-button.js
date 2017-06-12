@@ -1,5 +1,7 @@
-function PanelButton(game, label) {
+function PanelButton(game, label, spriteSheet) {
     Phaser.Group.call(this, game);
+
+    this.spriteSheet = (spriteSheet != null ? spriteSheet : "");
 
     this.onClicked = new Phaser.Signal();
 
@@ -19,7 +21,7 @@ PanelButton.prototype.init = function() {
     click.events.onInputDown.add(this.showOver, this);
     click.events.onInputUp.add(this.showNormal, this);
 
-    this.background = new Ninepatch(this.game, "gui:btnNormal");
+    this.background = new Ninepatch(this.game, "gui:btnNormal" + this.spriteSheet);
     this.background.inputEnabled = true;
     this.addChild(this.background);
 };
@@ -40,9 +42,9 @@ PanelButton.prototype.setLabel = function(newLabel) {
 };
 
 PanelButton.prototype.showOver = function(sprite, pointer) {
-    this.background.changeTexture("gui:btnOver");
+    this.background.changeTexture("gui:btnOver" + this.spriteSheet);
 };
 PanelButton.prototype.showNormal = function(sprite, pointer) {
-    this.background.changeTexture("gui:btnNormal");
+    this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
     this.onClicked.dispatch(this);
 };

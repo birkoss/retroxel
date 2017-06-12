@@ -9,8 +9,7 @@ function Popup(game) {
     this.maxWidth = this.game.width - 40;
     this.padding = 16;
 
-    this.background = new Ninepatch(this.game, "ninepatch:background");
-    this.popupContainer.addChild(this.background);
+    this.background = this.popupContainer.create(0, 0, "tile:blank");
 
     this.onPopupShown = new Phaser.Signal();
     this.onPopupHidden = new Phaser.Signal();
@@ -25,7 +24,7 @@ function Popup(game) {
 Popup.prototype = Object.create(Phaser.Group.prototype);
 Popup.prototype.constructor = Popup;
 
-Popup.SPEED = 300;
+Popup.SPEED = 800;
 
 Popup.prototype.getContainer = function(containerName) {
     let container = null;
@@ -48,19 +47,21 @@ Popup.prototype.getContainer = function(containerName) {
 };
 
 Popup.prototype.addButton = function(label, callback, context, sprite) {
-    if (sprite == undefined) {
-        sprite = "btnGreen";
-    }
     let group = this.getContainer("buttons").group;
-    let buttonPlay = this.game.add.button(0, group.height + (group.height > 0 ? this.padding : 0), "gui:"+sprite, callback, context, 1, 0, 1, 0);
-    let textPlay = this.game.add.bitmapText(0, 0, "font:gui", label, 20);
-    textPlay.anchor.set(0.5, 0.5);
-    textPlay.x += buttonPlay.width/2;
-    textPlay.y += buttonPlay.height/2;
-    buttonPlay.addChild(textPlay);
-    group.addChild(buttonPlay);
 
-	return buttonPlay;
+    if (sprite == undefined) {
+        sprite = "";
+    }
+    let button = new PanelButton(this.game, label, sprite);
+    if (callback != null) {
+        button.onClicked.add(callback, context);
+    }
+    if (group.children.length > 0) {
+        button.y += group.height + this.padding;
+    }
+    group.addChild(button);
+
+	return button;
 };
 
 Popup.prototype.close = function() {
@@ -83,19 +84,15 @@ Popup.prototype.createOverlay = function(opacity, color) {
 };
 
 Popup.prototype.createTitle = function(label) {
-    let container = this.getContainer("title").paddingTop = 0;
     let group = this.getContainer("title").group;
 
-    let background = new Ninepatch(this.game, "ninepatch:blue");
-    background.resize(this.maxWidth, 50);
-
-    let text = this.game.add.bitmapText(0, 0, "font:gui", label, 20);
+    let text = this.game.add.bitmapText(0, 0, "font:gui", label, 30);
+    text.tint = 0x954578;
     text.anchor.set(0.5, 0.5);
-    text.y += background.height/2;
-    text.x += background.width/2;
-    background.addChild(text);
+    text.x += text.width/2;
+    text.y += text.height/2;
 
-    group.addChild(background);
+    group.addChild(text);
 };
 
 Popup.prototype.createCloseButton = function() {
@@ -144,55 +141,12 @@ Popup.prototype.generate = function() {
 
     containerY += this.padding;
 
-    this.background.resize(this.maxWidth, containerY);
+    //this.background.resize(this.maxWidth, containerY);
+    this.background.width = this.maxWidth;
+    this.background.height = containerY;
 
     this.popupContainer.x = (this.game.width - this.background.width) /2;
     this.popupContainer.y = (this.game.height - this.background.height) /2;
-
-    /* Close button */
-    let group = this.getContainer("closeButton").group;
-    if (group.height > 0) {
-        group.x = this.popupContainer.width - group.width/2;
-        group.y = - group.height/2;
-    }
-
-    /* Create a listView if needed */
-    if (this.listViewItems.length > 0) {
-        let container = this.getContainer("listView").group;
-        let containerHeight = container.height;
-        let containerY = container.y;
-        let bounds = new Phaser.Rectangle(this.padding, this.padding, container.width - (this.padding*2), container.height - (this.padding*2));
-        let options = {
-            direction: 'y',
-            overflow: 100,
-            padding: 10,
-            searchForClicks: true
-        };
-        this.listView = new PhaserListView.ListView(this.game, container, bounds, options);
-
-        for (let i=0; i<this.listViewItems.length; i++) {
-            this.listView.add(this.listViewItems[i]);
-        }
-
-        let blocker = this.getContainer("listViewClickBlocker").group;
-        blocker.x = container.x;
-        blocker.y = containerY;
-        let sprite = blocker.create(0, 0, "tile:blank");
-        sprite.width = container.width;
-        sprite.height = container.y;
-        sprite.y = -sprite.height;
-        sprite.inputEnabled = true;
-        sprite.tint = 0xff00ff;
-        sprite.alpha = 0;
-
-        sprite = blocker.create(0, 0, "tile:blank");
-        sprite.width = container.width;
-        sprite.height = container.y;
-        sprite.alpha = 0;
-        sprite.y = containerHeight;
-        sprite.inputEnabled = true;
-        sprite.tint = 0xff00ff;
-    }
 
     this.popupContainer.destinationY = -this.popupContainer.height;
     this.popupContainer.originalY = this.popupContainer.y;
@@ -220,7 +174,7 @@ Popup.prototype.hide = function() {
 };
 
 Popup.prototype.show = function() {
-    let tween = this.game.add.tween(this.popupContainer).to({y:this.popupContainer.originalY}, Popup.SPEED);
+    let tween = this.game.add.tween(this.popupContainer).to({y:this.popupContainer.originalY}, Popup.SPEED, Phaser.Easing.Bounce.Out);
     tween.onComplete.add(function() {
         this.onPopupShown.dispatch(this);
     }, this);
