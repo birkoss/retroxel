@@ -5,6 +5,21 @@ function Grid(game, puzzle) {
     this.gridWidth = puzzle.gridWidth;
     this.gridHeight = puzzle.gridHeight;
 
+        //BLUE this.colorize(0x4493a0);
+        //GREEN this.colorize(0x85c226);
+        //Yellow this.colorize(0xf7c200);
+        //RED this.colorize(0xe8795e);
+        //PURPLE this.colorize(0xbab2d9);
+        //Pink-ish this.colorize(0xdf127b);
+        //Pink : this.colorize(0xcb1170);
+    this.colors = {
+        background: 0xeaeaea,
+        disabled: 0x000000,
+        toggled: 0xe8795e,
+        selected: 0xdcdcdc,
+        normal: 0xffffff
+    };
+
     this.tiles = [];
     this.selectedTile = null;
 
@@ -31,7 +46,7 @@ Grid.prototype.createBackground = function() {
     let background = this.backgroundContainer.create(0, 0, "tile:blank");
     background.width = this.tilesContainer.width + this.padding*2;
     background.height = this.tilesContainer.height + this.padding*2;
-    background.tint = 0xeaeaea;
+    background.tint = this.colors.background;
 
     background.inputEnabled = true;
     background.events.onInputDown.add(this.selectTile, this);
@@ -47,6 +62,7 @@ Grid.prototype.createGrid = function() {
             tile.y = gridY * (tile.height + this.padding);
             tile.gridX = gridX;
             tile.gridY = gridY;
+            tile.colorize(this.colors.normal);
             rows.push(tile);
             this.tilesContainer.addChild(tile);
         }
@@ -55,7 +71,7 @@ Grid.prototype.createGrid = function() {
 
     if (this.puzzle.disabledTiles != undefined) {
         this.puzzle.disabledTiles.forEach(function(tile) {
-            this.tiles[tile.gridY][tile.gridX].disable();
+            this.tiles[tile.gridY][tile.gridX].disable(this.colors.disabled);
         }, this);
     }
 
@@ -125,16 +141,16 @@ Grid.prototype.isInBound = function(gridX, gridY) {
 
 Grid.prototype.selectTile = function(Grid, pointer) {
     this.selectedTile = this.getTileFromPointer(pointer);
-    this.selectedTile.select();
+    this.selectedTile.setColor(this.colors.selected);
 };
 
 Grid.prototype.toggleTile = function(grid, pointer) {
     if (this.selectedTile != null) {
         if (this.selectedTile == this.getTileFromPointer(pointer)) {
-            this.selectedTile.toggle();
+            this.selectedTile.toggle(this.selectedTile.isToggled ? this.colors.normal : this.colors.toggled);
             this.onTileToggled.dispatch(this.selectedTile);
         } else {
-            this.selectedTile.unselect();
+            this.selectedTile.setColor(this.selectedTile.isToggled ? this.colors.toggled : this.colors.normal);
         }
 
         this.selectedTile = null;

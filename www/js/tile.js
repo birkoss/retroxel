@@ -6,13 +6,6 @@ function Tile(game) {
     this.isDisabled = false;
     this.isToggled = false;
 
-    this.colors = {
-        disabled: 0x000000,
-        toggled: 0xe8795e,
-        selected: 0xdcdcdc,
-        normal: 0xffffff
-    };
-
     this.init();
 };
 
@@ -25,34 +18,22 @@ Tile.prototype.colorize = function(newColor) {
     this.floor.tint = newColor;
 };
 
-Tile.prototype.disable = function() {
+Tile.prototype.disable = function(newColor) {
     this.isDisabled = true;
     this.canToggle = false;
-    this.colorize(this.colors.disabled);
+    this.colorize(newColor);
 };
 
-Tile.prototype.select = function() {
+Tile.prototype.setColor = function(newColor) {
     if (!this.isDisabled && this.canToggle) {
-        this.colorize(this.colors.selected);
+        this.colorize(newColor);
+        return true;
     }
+    return false;
 };
 
-Tile.prototype.unselect = function() {
-    if (!this.isDisabled && this.canToggle) {
-        this.colorize(this.isToggled ? this.colors.toggled : this.colors.normal);
-    }
-};
-
-Tile.prototype.toggle = function() {
-    if (!this.isDisabled && this.canToggle) {
-        //BLUE this.colorize(0x4493a0);
-        //GREEN this.colorize(0x85c226);
-        //Yellow this.colorize(0xf7c200);
-        //RED this.colorize(0xe8795e);
-        //PURPLE this.colorize(0xbab2d9);
-        //Pink-ish this.colorize(0xdf127b);
-        //Pink : this.colorize(0xcb1170);
-        this.colorize(this.isToggled ? this.colors.normal : this.colors.toggled);
+Tile.prototype.toggle = function(newColor) {
+    if (this.setColor(newColor)) {
         this.isToggled = !this.isToggled;
     }
 };
@@ -77,13 +58,6 @@ Tile.prototype.createTile = function(spriteName, frame) {
 Tile.prototype.init = function() {
     this.floor = this.createTile("tile:blank");
     this.addChild(this.floor);
-};
-
-Tile.prototype.setColor = function(colorState, newColor) {
-    this.colors[colorState] = newColor;
-    if (colorState == 'normal') {
-        this.colorize(this.colors[colorState]);
-    }
 };
 
 Tile.prototype.setLabel = function(newLabel) {
