@@ -17,6 +17,15 @@ GAME.Game.prototype = {
         let puzzle = {
             gridWidth: 5,
             gridHeight: 5,
+            answers: [
+                {gridX:0, gridY:0},
+                {gridX:2, gridY:1},
+                {gridX:1, gridY:2},
+                {gridX:4, gridY:2},
+                {gridX:0, gridY:3},
+                {gridX:2, gridY:3},
+                {gridX:1, gridY:4}
+            ],
             labels: [
                 {gridX:0, gridY:1, text:1},
                 {gridX:0, gridY:2, text:2},
@@ -91,6 +100,28 @@ GAME.Game.prototype = {
                 this.map.tiles[tile.gridY][tile.gridX].colorize(this.map.colors.normal);
             }
         }, this);
+
+        /* Check for solution */
+        let isCompleted = false;
+        console.log(this.map.getTilesFromColor(this.map.colors.toggled).length + " vs " + this.map.puzzle.answers.length);
+        if (this.map.getTilesFromColor(this.map.colors.toggled).length == this.map.puzzle.answers.length) {
+            isCompleted = true;
+            this.map.getTilesFromColor(this.map.colors.toggled).forEach(function(tile) {
+                let isOk = false;
+                this.map.puzzle.answers.forEach(function(answer) {
+                    if (tile.gridX == answer.gridX && tile.gridY == answer.gridY) {
+                        isOk = true;
+                    }
+                }, this);
+                if (!isOk) {
+                    isCompleted = false;
+                }
+            }, this);
+        }
+
+        if (isCompleted) {
+            console.log("COMPLETED!!!");
+        }
     },
     lightTile: function(tile) {
         let tiles = [];
