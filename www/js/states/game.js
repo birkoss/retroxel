@@ -13,12 +13,14 @@ GAME.Game.prototype = {
 
         this.createMap();
 
+        /*
         let popup = new Popup(this.game);
         popup.createOverlay(0.5);
         popup.createTitle("You won!");
         popup.addButton("Next", null, null);
         popup.addButton("Back", null, null, "Green");
         popup.generate();
+        */
     },
     createMap: function() {
         let puzzle = {

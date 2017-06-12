@@ -1,23 +1,30 @@
 var GAME = GAME || {};
 
-GAME.Main = function() {};
+GAME.Difficulty = function() {};
 
-GAME.Main.prototype = {
+GAME.Difficulty.prototype = {
     create: function() {
         this.backgroundContainer = this.game.add.group();
         this.titleContainer = this.game.add.group();
         this.buttonsContainer = this.game.add.group();
 
-        let text = this.game.add.bitmapText(0, 0, "font:gui", "[NAME HERE]", 30);
+        let text = this.game.add.bitmapText(0, 0, "font:gui", "Difficulty", 30);
         text.y = (this.game.height/4) - text.height/2;
         text.x = (this.game.width - text.width) / 2;
         this.titleContainer.addChild(text);
 
-        let button = new PanelButton(this.game, "Play");
-        button.y = (this.game.height/4*2) - button.height/2;
-        button.x = (this.game.width - button.width)/2;
-        button.onClicked.add(this.onPlayButtonClicked, this);
-        this.buttonsContainer.addChild(button);
+        let difficulties = [
+            {label:"Easy", color:""},
+            {label:"Medium", color:"Green"},
+            {label:"Hard", color:"Red"}
+        ];
+        difficulties.forEach(function(difficulty) {
+            let button = new PanelButton(this.game, difficulty.label, difficulty.color);
+            button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+            button.x = (this.game.width - button.width)/2;
+            button.onClicked.add(this.onPlayButtonClicked, this);
+            this.buttonsContainer.addChild(button);
+        }, this);
 
         this.titleContainer.originalX = this.titleContainer.x;
         this.buttonsContainer.originalX = this.buttonsContainer.x;
@@ -39,6 +46,6 @@ GAME.Main.prototype = {
         tween.onComplete.add(callback, context);
     },
     onPlayButtonClicked: function() {
-        this.hide(function() { this.state.start('Difficulty') }, this);
+        this.hide(function() { this.state.start('Game') }, this);
     }
 };

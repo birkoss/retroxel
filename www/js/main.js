@@ -3,7 +3,7 @@
  */
 var GAME = GAME || {};
 
-GAME.config = {puzzleSize:"5x5", puzzleID:1};
+GAME.config = {puzzleSize:"5x5", puzzleID:1, speed:800};
 
 GAME.config.puzzles = {'5x5':[1], '10x10':[1]};
 
@@ -38,6 +38,7 @@ GAME.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS
 GAME.game.state.add('Boot', GAME.Boot);
 GAME.game.state.add('Preload', GAME.Preload);
 GAME.game.state.add('Main', GAME.Main);
+GAME.game.state.add('Difficulty', GAME.Difficulty);
 GAME.game.state.add('Level', GAME.Level);
 GAME.game.state.add('Size', GAME.Size);
 GAME.game.state.add('Game', GAME.Game);

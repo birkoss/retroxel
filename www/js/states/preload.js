@@ -20,6 +20,9 @@ GAME.Preload.prototype = {
         this.load.spritesheet('gui:btnNormalGreen', 'images/gui/buttons/normalGreen.png', 2, 2);
         this.load.spritesheet('gui:btnOverGreen', 'images/gui/buttons/overGreen.png', 2, 2);
 
+        this.load.spritesheet('gui:btnNormalRed', 'images/gui/buttons/normalRed.png', 2, 2);
+        this.load.spritesheet('gui:btnOverRed', 'images/gui/buttons/overRed.png', 2, 2);
+
         this.load.bitmapFont('font:guiOutline', 'fonts/guiOutline.png', 'fonts/guiOutline.xml');
         this.load.bitmapFont('font:gui', 'fonts/gui.png', 'fonts/gui.xml');
 
@@ -29,6 +32,6 @@ GAME.Preload.prototype = {
         GAME.json = {maps: {}};
         GAME.json.maps['map1'] = this.cache.getJSON('data:map1');
 
-        this.state.start("Game");
+        this.state.start("Difficulty");
     }
 };
