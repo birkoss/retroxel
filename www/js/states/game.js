@@ -44,6 +44,13 @@ GAME.Game.prototype = {
         this.panel.buttonToggleClicked.add(this.onPanelToggleButtonClicked, this);
         this.panelContainer.addChild(this.panel);
     },
+
+    refreshGrid: function() {
+        /* Get existings color position */
+        let existingTiles = this.map.getTilesFromColor(0xf7c200);
+
+        /* Get all positions from each toggled tiles */
+    },
     /* Events */
     onPanelToggleButtonClicked: function(state) {
         this.map.simulate();
@@ -74,6 +81,9 @@ GAME.Game.prototype = {
             }, this);
         }
 
+        tiles.forEach(function(tile) {
+            this.map.tiles[tile.gridY][tile.gridX].colorize(0xf7c200);
+        }, this);
         console.log(tiles);
         // Get all value from axis until out of bounds OR disabled
         // - Highlight all empty tile
