@@ -33,6 +33,7 @@ GAME.Game.prototype = {
         };
 
         this.map = new Grid(this.game, puzzle);
+        this.map.colors['lighted'] = 0xf7c200;
         this.map.onTileToggled.add(this.onMapTileToggled, this);
         this.mapContainer.addChild(this.map);
 
@@ -47,15 +48,35 @@ GAME.Game.prototype = {
 
     refreshGrid: function() {
         /* Get existings color position */
-        let existingTiles = this.map.getTilesFromColor(0xf7c200);
+        let existingTiles = this.map.getTilesFromColor(this.map.colors.lighted);
 
         /* Get all positions from each toggled tiles */
+        let newTiles = [];
+        this.map.getTilesFromColor(this.map.colors.toggled).forEach(function(tile) {
+            this.lightTile(tile).forEach(function(lightedTile) {
+                let isNew = true;
+                newTiles.forEach(function(newTile) {
+                    if (newTile.gridX == lightedTile.gridX && newTile.gridY == lightedTile.gridY) {
+                        isNew = false;
+                    }
+                }, this);
+                if (isNew) {
+                    newTiles.push(lightedTile);
+                }
+            }, this);
+        }, this);
+
+        console.log(newTiles);
+        /*
+        tiles.forEach(function(tile) {
+            this.map.tiles[tile.gridY][tile.gridX].colorize(0xf7c200);
+        }, this);
+        console.log(tiles);
+        */
+        // Get all value from axis until out of bounds OR disabled
+        // - Highlight all empty tile
     },
-    /* Events */
-    onPanelToggleButtonClicked: function(state) {
-        this.map.simulate();
-    },
-    onMapTileToggled: function(tile) {
+    lightTile: function(tile) {
         let tiles = [];
 
         let neighboors = [{gridX:0, gridY:1, enable:true}, {gridX:0, gridY:-1, enable:true}, {gridX:1, gridY:0, enable:true}, {gridX:-1, gridY:0, enable:true}];
@@ -74,18 +95,21 @@ GAME.Game.prototype = {
                         neighboor.enable = false;
                     }
 
-                    if (neighboor.enable) {
+                    if (neighboor.enable && !this.map.tiles[nY][nY].isToggled) {
                         tiles.push({gridX:nX, gridY:nY});
                     }
                 }
             }, this);
         }
+        return tiles;
+    },
+    /* Events */
+    onPanelToggleButtonClicked: function(state) {
+        this.map.simulate();
+    },
+    onMapTileToggled: function(tile) {
+        this.refreshGrid();
+        return;
 
-        tiles.forEach(function(tile) {
-            this.map.tiles[tile.gridY][tile.gridX].colorize(0xf7c200);
-        }, this);
-        console.log(tiles);
-        // Get all value from axis until out of bounds OR disabled
-        // - Highlight all empty tile
     }
 };
