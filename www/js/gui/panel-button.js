@@ -8,7 +8,6 @@ function PanelButton(game, label, spriteSheet, dimension) {
     this.init();
 
     this.dimension = (dimension == null ? {width:120, height:40} : dimension);
-    console.log(this.dimension);
     this.setLabel(label);
 };
 
@@ -57,7 +56,7 @@ PanelButton.prototype.showOver = function(sprite, pointer) {
     }
 };
 PanelButton.prototype.showNormal = function(sprite, pointer) {
-        this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
+    this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
     if (this.alpha == 1) {
         this.onClicked.dispatch(this);
     }

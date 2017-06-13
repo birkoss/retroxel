@@ -6,7 +6,7 @@ GAME.Difficulty.prototype = new AnimatedState();
 
 GAME.Difficulty.prototype.preload = function() {
     this.load.json("data:puzzles", "data/puzzles.json");
-    this.load.json("data:puzzle", "data/" + GAME.config.puzzleName + ".json");
+    this.load.json("data:difficulties", "data/" + GAME.config.puzzleName + ".json");
 };
 
 GAME.Difficulty.prototype.create = function() {
@@ -35,14 +35,16 @@ GAME.Difficulty.prototype.create = function() {
         Medium:"Green",
         Hard:"Red"
     };
-    this.cache.getJSON("data:puzzle").forEach(function(difficulty) {
+    this.cache.getJSON("data:difficulties").forEach(function(difficulty) {
         let button = new PanelButton(this.game, difficulty.name, colors[difficulty.name]);
         button.difficulty = difficulty.name;
-        button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+        button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
         button.x = (this.game.width - button.width)/2;
         button.onClicked.add(this.onBtnDifficultyClicked, this);
         this.buttonsContainer.addChild(button);
     }, this);
+
+    this.buttonsContainer.y = (this.game.height - this.buttonsContainer.height) / 2;
 
 
     /* Prepare the animations */

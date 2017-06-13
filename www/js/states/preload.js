@@ -27,9 +27,6 @@ GAME.Preload.prototype = {
         this.load.bitmapFont('font:gui', 'fonts/gui.png', 'fonts/gui.xml');
     },
     create: function() {
-        GAME.json = {maps: {}};
-        GAME.json.maps['map1'] = this.cache.getJSON('data:map1');
-
-        this.state.start("Puzzle");
+        this.state.start("Level");
     }
 };

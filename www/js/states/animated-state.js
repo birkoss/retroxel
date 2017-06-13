@@ -11,7 +11,8 @@ AnimatedState.Animation = {
 AnimatedState.Speed = 500;
 
 AnimatedState.Dimension = {
-    Panel:{width:60, height:60}
+    Panel:{width:60, height:60},
+    Navigator:{width:40, height:40}
 };
 
 AnimatedState.prototype = {
@@ -31,6 +32,12 @@ AnimatedState.prototype = {
 
                     container.x = container.destinationX;
                     break;
+                case AnimatedState.Animation.SlideUp:
+                    container.originalY = container.y;
+                    container.destinationY = container.y + container.height;
+
+                    container.y = container.destinationY;
+                    break;
             }
         }, this);
 
@@ -38,6 +45,7 @@ AnimatedState.prototype = {
         this.containers.forEach(function(container) {
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
+                case AnimatedState.Animation.SlideUp:
                     this.game.add.tween(container).to({y:container.originalY}, AnimatedState.Speed, Phaser.Easing.Elastic.Out).start();
                     break;
                 case AnimatedState.Animation.SlideRight:
@@ -53,6 +61,7 @@ AnimatedState.prototype = {
             let tween = null;
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
+                case AnimatedState.Animation.SlideUp:
                     tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Elastic.Out);
                     break;
                 case AnimatedState.Animation.SlideRight:

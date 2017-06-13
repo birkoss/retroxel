@@ -1,19 +1,20 @@
-function Panel(game, title) {
+function Panel(game, title, height) {
     Phaser.Group.call(this, game);
 
-    this.createBackground();
+    this.createBackground(height);
 };
 
 Panel.prototype = Object.create(Phaser.Group.prototype);
 Panel.prototype.constructor = Panel;
 
-Panel.prototype.createBackground = function() {
+Panel.prototype.createBackground = function(height) {
+    height = (height == null ? 60 : height);
     this.backgroundContainer = this.game.add.group();
     this.addChild(this.backgroundContainer);
 
     this.background = this.backgroundContainer.create(0, 0, "tile:blank");
     this.background.width = this.game.width;
-    this.background.height = 60;
+    this.background.height = height;
     this.background.tint = 0xffffff;
     this.background.alpha = 0.3;
 };
@@ -24,10 +25,10 @@ Panel.prototype.createTitle = function(label, size) {
     this.titleContainer = this.game.add.group();
     this.addChild(this.titleContainer);
 
-    let text = this.game.add.bitmapText(0, 0, "font:gui", label, size);
-    text.x = (this.game.width - text.width) / 2;
-    text.y = (this.background.height - size) / 2;
-    this.titleContainer.addChild(text);
+    this.title = this.game.add.bitmapText(0, 0, "font:gui", label, size);
+    this.title.x = (this.game.width - this.title.width) / 2;
+    this.title.y = (this.background.height - size) / 2;
+    this.titleContainer.addChild(this.title);
 };
 
 Panel.prototype.addButton = function(button) {
@@ -40,4 +41,9 @@ Panel.prototype.addButton = function(button) {
         button.x = this.game.width - button.width;
     }
     this.buttonsContainer.addChild(button);
+};
+
+Panel.prototype.setTitle = function(label) {
+    this.title.text = label;
+    this.title.x = (this.game.width - this.title.width) / 2;
 };
