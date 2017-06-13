@@ -9,7 +9,7 @@ GAME.Level.prototype = {
         this.levelsContainer = this.game.add.group();
         this.buttonsContainer = this.game.add.group();
 
-        let text = this.game.add.bitmapText(0, 0, "font:gui", "Level", 30);
+        let text = this.game.add.bitmapText(0, 0, "font:gui", GAME.config.puzzleDifficulty, 30);
         text.x = (this.game.width - text.width) / 2;
         this.titleContainer.addChild(text);
 
@@ -53,13 +53,19 @@ GAME.Level.prototype = {
         this.show();
     },
     createLevels: function() {
-        this.levelsContainer.removeAll();
+        this.levelsContainer.removeAll(true);
 
         let padding = 16;
         let index = (this.page * this.limit);
         for (let y=0; y<5; y++) {
             for (let x=0; x<4; x++) {
                 let button = new PanelButton(this.game, ++index, "", true);
+                if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(index) == -1) {
+                    button.disable();
+                } else {
+                    button.onClicked.add(this.onBtnLevelClicked, this);
+                }
+                button.level = index;
                 button.x = x * (button.width + (padding/2));
                 button.y = y * (button.height + (padding/2));
                 this.levelsContainer.addChild(button);
@@ -89,14 +95,15 @@ GAME.Level.prototype = {
         let tween = this.game.add.tween(this.buttonsContainer).to({x:this.buttonsContainer.destinationX}, GAME.config.speed, Phaser.Easing.Elastic.In).start();
         tween.onComplete.add(callback, context);
     },
-    onPlayButtonClicked: function() {
-        this.hide(function() { this.state.start('Game') }, this);
-    },
     onBtnBackClicked: function() {
         this.hide(function() { this.state.start("Difficulty") }, this);
     },
     onBtnNavigationClicked: function(button) {
         this.page += button.direction;
         this.createLevels();
+    },
+    onBtnLevelClicked: function(button) {
+        GAME.config.puzzleLevel = button.level;
+        this.hide(function() { this.state.start("Game") }, this);
     }
 };

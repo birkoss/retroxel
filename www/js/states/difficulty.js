@@ -20,9 +20,10 @@ GAME.Difficulty.prototype = {
         ];
         difficulties.forEach(function(difficulty) {
             let button = new PanelButton(this.game, difficulty.label, difficulty.color);
+            button.difficulty = difficulty.label;
             button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
             button.x = (this.game.width - button.width)/2;
-            button.onClicked.add(this.onPlayButtonClicked, this);
+            button.onClicked.add(this.onDifficultyButtonClicked, this);
             this.buttonsContainer.addChild(button);
         }, this);
 
@@ -45,7 +46,8 @@ GAME.Difficulty.prototype = {
         let tween = this.game.add.tween(this.buttonsContainer).to({x:this.buttonsContainer.destinationX}, GAME.config.speed, Phaser.Easing.Elastic.In).start();
         tween.onComplete.add(callback, context);
     },
-    onPlayButtonClicked: function() {
+    onDifficultyButtonClicked: function(button) {
+        GAME.config.puzzleDifficulty = button.difficulty;
         this.hide(function() { this.state.start("Level") }, this);
     }
 };

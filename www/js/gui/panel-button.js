@@ -50,7 +50,7 @@ PanelButton.prototype.setLabel = function(newLabel) {
 };
 
 PanelButton.prototype.disable = function() {
-    this.alpha = 0.7;
+    this.alpha = 0.3;
 };
 
 PanelButton.prototype.enable = function() {
@@ -63,8 +63,8 @@ PanelButton.prototype.showOver = function(sprite, pointer) {
     }
 };
 PanelButton.prototype.showNormal = function(sprite, pointer) {
-    if (this.alpha == 1) {
         this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
+    if (this.alpha == 1) {
         this.onClicked.dispatch(this);
     }
 };
