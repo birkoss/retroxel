@@ -1,1 +1,5 @@
-[{"name":"Easy","total":100},{"name":"Hard","total":100},{"name":"Medium","total":100}]
+[
+    {"name":"Easy","total":100},
+    {"name":"Medium","total":100},
+    {"name":"Hard","total":100}
+]

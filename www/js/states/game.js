@@ -24,8 +24,8 @@ GAME.Game.prototype = {
     },
     createMap: function() {
         let puzzle = {
-            gridWidth: 5,
-            gridHeight: 5,
+            gridWidth: 10,
+            gridHeight: 15,
             answers: [
                 {gridX:0, gridY:0},
                 {gridX:2, gridY:1},

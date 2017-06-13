@@ -68,8 +68,6 @@ AnimatedState.prototype = {
         }, this);
     },
     onTweenCompleted: function() {
-        console.log(this.game.tweens.getAll());
-        console.log(this.game.tweens.getAll().length);
         if (this.game.tweens.getAll().length == 1) {
             if (this.callback != null) {
                 this.callback();
