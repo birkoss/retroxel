@@ -1,4 +1,4 @@
-function PanelButton(game, label, spriteSheet, isSquare) {
+function PanelButton(game, label, spriteSheet, dimension) {
     Phaser.Group.call(this, game);
 
     this.spriteSheet = (spriteSheet != null ? spriteSheet : "");
@@ -7,7 +7,8 @@ function PanelButton(game, label, spriteSheet, isSquare) {
 
     this.init();
 
-    this.isSquare = (isSquare ? true : false);
+    this.dimension = (dimension == null ? {width:120, height:40} : dimension);
+    console.log(this.dimension);
     this.setLabel(label);
 };
 
@@ -34,16 +35,9 @@ PanelButton.prototype.setLabel = function(newLabel) {
     this.label.y += this.label.height/2;
     this.addChild(this.label);
 
-    if (this.isSquare) {
-        this.background.resize(60, 60);
-        this.getChildAt(0).width = 60;
-        this.getChildAt(0).height = 60;
-    } else {
-        this.background.resize(120, 40);
-        this.getChildAt(0).width = 120;
-        this.getChildAt(0).height = 40;
-    }
-
+    this.background.resize(this.dimension.width, this.dimension.height);
+    this.getChildAt(0).width = this.dimension.width;
+    this.getChildAt(0).height = this.dimension.height;
 
     this.label.x += (this.background.width - this.label.width) / 2;
     this.label.y += (this.background.height - this.label.height) / 2;
