@@ -1,4 +1,4 @@
-function PanelButton(game, label, spriteSheet) {
+function PanelButton(game, label, spriteSheet, isSquare) {
     Phaser.Group.call(this, game);
 
     this.spriteSheet = (spriteSheet != null ? spriteSheet : "");
@@ -7,6 +7,7 @@ function PanelButton(game, label, spriteSheet) {
 
     this.init();
 
+    this.isSquare = (isSquare ? true : false);
     this.setLabel(label);
 };
 
@@ -33,18 +34,37 @@ PanelButton.prototype.setLabel = function(newLabel) {
     this.label.y += this.label.height/2;
     this.addChild(this.label);
 
-    this.background.resize(120, 40);
-    this.getChildAt(0).width = 120;
-    this.getChildAt(0).height = 40;
+    if (this.isSquare) {
+        this.background.resize(60, 60);
+        this.getChildAt(0).width = 60;
+        this.getChildAt(0).height = 60;
+    } else {
+        this.background.resize(120, 40);
+        this.getChildAt(0).width = 120;
+        this.getChildAt(0).height = 40;
+    }
+
 
     this.label.x += (this.background.width - this.label.width) / 2;
     this.label.y += (this.background.height - this.label.height) / 2;
 };
 
+PanelButton.prototype.disable = function() {
+    this.alpha = 0.7;
+};
+
+PanelButton.prototype.enable = function() {
+    this.alpha = 1;
+};
+
 PanelButton.prototype.showOver = function(sprite, pointer) {
-    this.background.changeTexture("gui:btnOver" + this.spriteSheet);
+    if (this.alpha == 1) {
+        this.background.changeTexture("gui:btnOver" + this.spriteSheet);
+    }
 };
 PanelButton.prototype.showNormal = function(sprite, pointer) {
-    this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
-    this.onClicked.dispatch(this);
+    if (this.alpha == 1) {
+        this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
+        this.onClicked.dispatch(this);
+    }
 };

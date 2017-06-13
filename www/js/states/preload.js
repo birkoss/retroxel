@@ -32,6 +32,6 @@ GAME.Preload.prototype = {
         GAME.json = {maps: {}};
         GAME.json.maps['map1'] = this.cache.getJSON('data:map1');
 
-        this.state.start("Difficulty");
+        this.state.start("Level");
     }
 };

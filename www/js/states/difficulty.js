@@ -46,6 +46,6 @@ GAME.Difficulty.prototype = {
         tween.onComplete.add(callback, context);
     },
     onPlayButtonClicked: function() {
-        this.hide(function() { this.state.start('Game') }, this);
+        this.hide(function() { this.state.start("Level") }, this);
     }
 };
