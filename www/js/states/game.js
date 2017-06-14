@@ -28,15 +28,6 @@ GAME.Game.prototype.create = function() {
     this.gridContainer.animation = AnimatedState.Animation.SlideRight;
     this.createGrid();
 
-    /*
-       let popup = new Popup(this.game);
-       popup.createOverlay(0.5);
-       popup.createTitle("You won!");
-       popup.addButton("Next", null, null);
-       popup.addButton("Back", null, null, "Green");
-       popup.generate();
-       */
-
     /* Prepare the animations */
     this.containers.push(this.panelContainer);
     this.containers.push(this.gridContainer);
@@ -121,7 +112,7 @@ GAME.Game.prototype.refreshGrid = function() {
     }
 
     if (isCompleted) {
-        console.log("COMPLETED!!!");
+        this.gameOver();
     }
 };
 
@@ -153,6 +144,25 @@ GAME.Game.prototype.lightTile = function(tile) {
     return tiles;
 };
 
+GAME.Game.prototype.gameOver = function() {
+    let popup = new Popup(this.game);
+    popup.createOverlay(0.5);
+    popup.createTitle("You won!");
+    
+    /* Save and unlock the next puzzle in this difficulty (if any...) */
+    if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length - 1) {
+        if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(GAME.config.puzzleLevel+1) == -1) {
+            GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].push(GAME.config.puzzleLevel+1);
+            GAME.save();
+        }
+        /* TODO: On the last, show the next difficulty if any... */
+        popup.addButton("Next", this.onBtnNextClicked, this);
+    }
+
+    popup.addButton("Back", this.onBtnBackClicked, this, "Green");
+    popup.generate();
+};
+
 
 /* Load states */
 
@@ -164,6 +174,10 @@ GAME.Game.prototype.loadLevels = function() {
     this.state.start("Level");
 };
 
+GAME.Game.prototype.restartLevel = function() {
+    this.state.restart();
+};
+
 /* Events */
 
 GAME.Game.prototype.onGridTileToggled = function(tile) {
@@ -172,4 +186,10 @@ GAME.Game.prototype.onGridTileToggled = function(tile) {
 
 GAME.Game.prototype.onBtnBackClicked = function(button) {
     this.hide(this.loadLevels, this);
+};
+
+GAME.Game.prototype.onBtnNextClicked = function(button) {
+    GAME.config.puzzleLevel++;
+    GAME.save();
+    this.hide(this.restartLevel, this);
 };

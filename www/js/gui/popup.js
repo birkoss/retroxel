@@ -158,7 +158,6 @@ Popup.prototype.generate = function() {
 
 Popup.prototype.hide = function() {
     if (this.overlayContainer.children.length > 0) {
-        console.log("Hiding overlay...");
         this.overlayContainer.alpha = 0;
         this.overlayContainer.getChildAt(0).inputEnabled = false;
     }
