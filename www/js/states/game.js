@@ -117,9 +117,21 @@ GAME.Game.prototype.refreshGrid = function() {
     }, this);
 
     /* Blink the tiles */
-    console.log(illuminatedTiles);
     illuminatedTiles.forEach(function(tile) {
         this.grid.tiles[tile.gridY][tile.gridX].blink();
+    }, this);
+
+    /* Check each labels */
+    this.grid.getTilesFromColor(this.grid.colors.disabled).forEach(function(tile) {
+        if (tile.label != null) {
+            let total = 0;
+            this.grid.getNeighboors(tile.gridX, tile.gridY).forEach(function(neighboor) {
+                if (neighboor.floor.tint == this.grid.colors.toggled) {
+                    total++;
+                }
+            }, this);
+            tile.label.tint = (total > tile.label.text ? 0xff0000 : 0xffffff);
+        }
     }, this);
 
     /* Check for solution */

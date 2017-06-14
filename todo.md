@@ -25,9 +25,6 @@
 
 * Game (state)
     * Rename to Puzzle
-    * Gameplay
-        * Change the label color when the tile requirement is met
-        * Highlight the lights when they illuminate another light
     * Animation
         * Light the grid on a time based delay (starting around the tile and going further)
             * Instead of simply changing the color, create another frame and scale it

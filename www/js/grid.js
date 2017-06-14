@@ -84,22 +84,20 @@ Grid.prototype.createGrid = function() {
 
 /* Helpers */
 
-Grid.prototype.getNeighboors = function(gridX, gridY, isAlive) {
-    let total = 0;
+Grid.prototype.getNeighboors = function(gridX, gridY) {
+    let neighboors = [];
     for (let y=-1; y<=1; y++) {
         for (let x=-1; x<=1; x++) {
-            if (x != 0 || y != 0) {
+            if (Math.abs(x) != Math.abs(y)) { /*if (x != 0 || y != 0) { */
                 let newX = gridX + x;
                 let newY = gridY + y;
                 if (newX >= 0 && newX < this.gridWidth && newY >= 0 && newY < this.gridHeight) {
-                    if (this.tiles[newY][newX].isAlive() == isAlive) {
-                        total++;
-                    }
+                    neighboors.push(this.tiles[newY][newX]);
                 }
             }
         }
     }
-    return total;
+    return neighboors;
 };
 
 Grid.prototype.getTileFromPointer = function(pointer) {
