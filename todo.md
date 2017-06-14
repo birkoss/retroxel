@@ -1,6 +1,4 @@
 * General
-    * Popup hiding
-        * Should leave the overlay until it's done
     * Find a background concept for each states
     * Find icons (Previous, Next, Help, Reload)
     * Verify the animations
@@ -8,7 +6,7 @@
 
 * Main (state)
     * Find a name :D
-    * Redo using the AnimatedState
+    * Rewrite using the AnimatedState
 
 * Puzzles (state)
     * Rename to ChoosePuzzle
@@ -34,8 +32,6 @@
         * Light the grid on a time based delay (starting around the tile and going further)
             * Instead of simply changing the color, create another frame and scale it
             * Disable the click while doing it
-    * GameOver popup
-        * Hide the popup THEN do the selected action
     * Bottom panel
         * Button HELP
             * Show the Help Popup
