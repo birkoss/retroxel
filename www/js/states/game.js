@@ -15,7 +15,7 @@ GAME.Game.prototype.create = function() {
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
 
-    this.panel = new Panel(this.game, "Puzzle");
+    this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
     this.panel.createTitle("# " + GAME.config.puzzleLevel);
 
@@ -31,7 +31,7 @@ GAME.Game.prototype.create = function() {
     this.navigatorContainer = this.game.add.group();
     this.navigatorContainer.animation = AnimatedState.Animation.SlideUp;
 
-    this.navigator = new Panel(this.game, "", AnimatedState.Dimension.Navigator.height);
+    this.navigator = new Panel(this.game, AnimatedState.Dimension.Navigator.height);
     this.navigatorContainer.addChild(this.navigator);
 
     button = new PanelButton(this.game, "?", "Green", AnimatedState.Dimension.Navigator);
@@ -290,8 +290,10 @@ GAME.Game.prototype.popupHelp = function() {
     this.popup.createOverlay(0.5);
     this.popup.createTitle("");
     
-
-    this.popup.addButton("Back", this.popupCloseAndLoadLevels, this, "Green");
-    this.popup.addPage();
+    this.popup.addPage({'text':"You need to places light bulbs in white cells until the entire grid is lit up."});
+    this.popup.addPage({'text':"A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell."});
+    this.popup.addPage({'text':"Rules #1\n\nNo two bulbs illuminate on each other."});
+    this.popup.addPage({'text':"Rules #2\n\nA black cell may have a number on it from 0 to 4, indicating how many bulbs must be placed adjacent to its four sides."});
+    this.popup.addPage({'text':"Rules #3\n\nAn unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count."});
     this.popup.generate();
 };

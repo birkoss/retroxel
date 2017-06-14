@@ -1,4 +1,4 @@
-function Panel(game, title, height) {
+function Panel(game, height) {
     Phaser.Group.call(this, game);
 
     this.createBackground(height);
