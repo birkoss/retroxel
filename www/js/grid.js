@@ -2,8 +2,8 @@ function Grid(game, puzzle) {
     Phaser.Group.call(this, game);
 
     this.puzzle = puzzle;
-    this.gridWidth = puzzle.gridWidth;
-    this.gridHeight = puzzle.gridHeight;
+    this.gridWidth = puzzle.width;
+    this.gridHeight = puzzle.height;
 
         //BLUE this.colorize(0x4493a0);
         //GREEN this.colorize(0x85c226);
@@ -77,7 +77,7 @@ Grid.prototype.createGrid = function() {
 
     if (this.puzzle.labels != undefined) {
         this.puzzle.labels.forEach(function(label) {
-            this.tiles[label.gridY][label.gridX].setLabel(label.text);
+            this.tiles[label.gridY][label.gridX].setLabel(label.label);
         }, this);
     }
 };

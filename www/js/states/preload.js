@@ -27,6 +27,6 @@ GAME.Preload.prototype = {
         this.load.bitmapFont('font:gui', 'fonts/gui.png', 'fonts/gui.xml');
     },
     create: function() {
-        this.state.start("Level");
+        this.state.start("Game");
     }
 };

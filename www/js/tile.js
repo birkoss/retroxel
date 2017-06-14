@@ -62,6 +62,7 @@ Tile.prototype.init = function() {
 
 Tile.prototype.setLabel = function(newLabel) {
     this.label = this.game.add.bitmapText(this.floor.width/2, this.floor.height/2, "font:gui", newLabel, 20);
+    this.label.tint = 0xffffff;
     this.label.anchor.set(0.5, 0.5);
     this.addChild(this.label);
 };
