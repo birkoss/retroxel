@@ -27,6 +27,18 @@ GAME.Game.prototype.create = function() {
     button.onClicked.add(this.popupRestart, this);
     this.panel.addButton(button);
 
+    /* Create the navigator */
+    this.navigatorContainer = this.game.add.group();
+    this.navigatorContainer.animation = AnimatedState.Animation.SlideUp;
+
+    this.navigator = new Panel(this.game, "", AnimatedState.Dimension.Navigator.height);
+    this.navigatorContainer.addChild(this.navigator);
+
+    button = new PanelButton(this.game, "?", "Green", AnimatedState.Dimension.Navigator);
+    button.onClicked.add(this.popupHelp, this);
+    this.navigator.addButton(button);
+    this.navigatorContainer.y = this.game.height - this.navigatorContainer.height;
+
     /* Create the grid */
     this.gridContainer = this.game.add.group();
     this.gridContainer.animation = AnimatedState.Animation.SlideRight;
@@ -34,6 +46,7 @@ GAME.Game.prototype.create = function() {
 
     /* Prepare the animations */
     this.containers.push(this.panelContainer);
+    this.containers.push(this.navigatorContainer);
     this.containers.push(this.gridContainer);
 
     this.show();
@@ -197,7 +210,6 @@ GAME.Game.prototype.restartLevel = function() {
 };
 
 GAME.Game.prototype.loadLevels = function() {
-    console.log("LL");
     this.hide(this.stateLoadLevels, this);
 };
 
@@ -269,6 +281,15 @@ GAME.Game.prototype.popupGameOver = function() {
         this.popup.addButton("Next", this.popupCloseAndNextLevel, this);
     }
 
+    this.popup.addButton("Back", this.popupCloseAndLoadLevels, this, "Green");
+    this.popup.generate();
+};
+
+GAME.Game.prototype.popupHelp = function() {
+    this.popup = new Popup(this.game);
+    this.popup.createOverlay(0.5);
+    this.popup.createTitle("");
+    
     this.popup.addButton("Back", this.popupCloseAndLoadLevels, this, "Green");
     this.popup.generate();
 };
