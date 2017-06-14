@@ -23,6 +23,10 @@ GAME.Game.prototype.create = function() {
     button.onClicked.add(this.onBtnBackClicked, this);
     this.panel.addButton(button);
 
+    button = new PanelButton(this.game, "R", "Green", AnimatedState.Dimension.Panel);
+    button.onClicked.add(this.onBtnRestartClicked, this);
+    this.panel.addButton(button);
+
     /* Create the grid */
     this.gridContainer = this.game.add.group();
     this.gridContainer.animation = AnimatedState.Animation.SlideRight;
@@ -192,4 +196,20 @@ GAME.Game.prototype.onBtnNextClicked = function(button) {
     GAME.config.puzzleLevel++;
     GAME.save();
     this.hide(this.restartLevel, this);
+};
+
+GAME.Game.prototype.onClosePopupClicked = function() {
+    this.close();
+};
+
+GAME.Game.prototype.onBtnRestartClicked = function(button) {
+    //this.hide(this.restartLevel, this);
+    let popup = new Popup(this.game);
+    popup.createOverlay(0.5);
+    popup.createTitle("Do you want to restart this puzzle?");
+    
+    popup.addButton("Yes", this.onBtnBackClicked, this);
+    popup.addButton("No", this.onClosePopupClicked, popup, "Red");
+
+    popup.generate();
 };

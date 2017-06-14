@@ -7,7 +7,7 @@ function Popup(game) {
     this.containers = new Array();
 
     this.maxWidth = this.game.width - 40;
-    this.padding = 16;
+    this.padding = 24;
 
     this.background = this.popupContainer.create(0, 0, "tile:blank");
 
@@ -86,7 +86,9 @@ Popup.prototype.createOverlay = function(opacity, color) {
 Popup.prototype.createTitle = function(label) {
     let group = this.getContainer("title").group;
 
-    let text = this.game.add.bitmapText(0, 0, "font:gui", label, 30);
+    let text = this.game.add.bitmapText(0, 0, "font:gui", label, 20);
+    text.align = "center";
+    text.maxWidth = this.maxWidth - (this.padding*2);
     text.tint = 0x954578;
     text.anchor.set(0.5, 0.5);
     text.x += text.width/2;
@@ -105,7 +107,6 @@ Popup.prototype.createCloseButton = function() {
     iconClose.y = btnClose.height/2;
     btnClose.addChild(iconClose);
 
-    console.log(this);
     btnClose.inputEnabled = true;
     btnClose.events.onInputUp.add(function() {
         this.close();
@@ -162,7 +163,7 @@ Popup.prototype.hide = function() {
         this.overlayContainer.getChildAt(0).inputEnabled = false;
     }
 
-    let tween = this.game.add.tween(this.popupContainer).to({y:this.popupContainer.destinationY}, Popup.SPEED);
+    let tween = this.game.add.tween(this.popupContainer).to({y:this.popupContainer.destinationY}, Popup.SPEED, Phaser.Easing.Bounce.In);
     tween.onComplete.add(function() {
         this.onPopupHidden.dispatch(this, 0);
         this.overlayContainer.destroy();
