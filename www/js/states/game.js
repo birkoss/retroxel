@@ -286,10 +286,12 @@ GAME.Game.prototype.popupGameOver = function() {
 };
 
 GAME.Game.prototype.popupHelp = function() {
-    this.popup = new Popup(this.game);
+    this.popup = new PopupHelp(this.game);
     this.popup.createOverlay(0.5);
     this.popup.createTitle("");
     
+
     this.popup.addButton("Back", this.popupCloseAndLoadLevels, this, "Green");
+    this.popup.addPage();
     this.popup.generate();
 };

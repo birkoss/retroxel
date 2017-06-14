@@ -7,6 +7,7 @@ function Popup(game) {
     this.containers = new Array();
 
     this.maxWidth = this.game.width - 40;
+    this.maxHeight = 0;
     this.padding = 24;
 
     this.background = this.popupContainer.create(0, 0, "tile:blank");
@@ -125,18 +126,21 @@ Popup.prototype.generate = function() {
             } else {
                 singleContainer.group.x = (this.maxWidth - singleContainer.group.width) / 2;
             }
+            if (singleContainer.y != undefined) {
+                singleContainer.group.y = singleContainer.y;
+            } else {
+                if (singleContainer.paddingTop == undefined) {
+                    containerY += this.padding;
+                } else if(singleContainer.paddingTop > 0) {
+                    containerY += singleContainer.paddingTop;
+                }
+                singleContainer.group.y = containerY;
+                if (singleContainer.paddingBottom != undefined) {
+                    containerY += singleContainer.paddingBottom;
+                }
 
-            if (singleContainer.paddingTop == undefined) {
-                containerY += this.padding;
-            } else if(singleContainer.paddingTop > 0) {
-                containerY += singleContainer.paddingTop;
+                containerY += singleContainer.group.height;
             }
-            singleContainer.group.y = containerY;
-            if (singleContainer.paddingBottom != undefined) {
-                containerY += singleContainer.paddingBottom;
-            }
-
-            containerY += singleContainer.group.height;
         }
     }, this);
 
@@ -144,7 +148,7 @@ Popup.prototype.generate = function() {
 
     //this.background.resize(this.maxWidth, containerY);
     this.background.width = this.maxWidth;
-    this.background.height = containerY;
+    this.background.height = (this.maxHeight == 0 ? containerY : this.maxHeight);
 
     this.popupContainer.x = (this.game.width - this.background.width) /2;
     this.popupContainer.y = (this.game.height - this.background.height) /2;
