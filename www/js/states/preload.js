@@ -25,6 +25,9 @@ GAME.Preload.prototype = {
 
         this.load.bitmapFont('font:guiOutline', 'fonts/guiOutline.png', 'fonts/guiOutline.xml');
         this.load.bitmapFont('font:gui', 'fonts/gui.png', 'fonts/gui.xml');
+
+        this.load.image('help:rule2', 'images/help/rule2.png');
+        this.load.image('help:rule1-wrong', 'images/help/rule1-wrong.png');
     },
     create: function() {
         this.state.start("Game");

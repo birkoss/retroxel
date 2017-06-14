@@ -18,8 +18,8 @@ PopupHelp.prototype.addPage = function(page) {
     let container = this.getContainer("page_" + this.pages.length);
     let group = container.group;
 
-    if (page.rows != undefined) {
-        page.rows.forEach(function(row) {
+    if (Array.isArray(page)) {
+        page.forEach(function(row) {
             this.addRow(group, row);
         }, this);
     } else {
@@ -27,6 +27,7 @@ PopupHelp.prototype.addPage = function(page) {
     }
 
     container.y = (this.maxHeight - group.height) / 2;
+    container.y += (this.panel.height-this.navigator.height)/2;
 
     if (this.pages.length > 0) {
         group.alpha = 0;
@@ -38,12 +39,24 @@ PopupHelp.prototype.addPage = function(page) {
 };
 
 PopupHelp.prototype.addRow = function(group, row) {
+    let startY = 0;
+    if (group.height > 0) {
+        startY += group.height + this.padding;
+    }
     let text = this.game.add.bitmapText(0, 0, "font:gui", row.text, 20);
     text.tint = 0x000000;
     text.maxWidth = this.maxWidth - this.padding*2;
     text.anchor.set(0.5, 0.5);
     text.x += text.width/2;
     text.y += text.height/2;
+
+    if (group.height > 0) {
+        text.y += startY;
+    }
+
+    if (row.img != undefined) {
+        let img = group.create(0, startY, row.img);
+    }
 
     group.addChild(text);
 };
