@@ -157,10 +157,12 @@ Popup.prototype.generate = function() {
     this.show();
 };
 
-Popup.prototype.hide = function() {
+Popup.prototype.hide = function(callback) {
     if (this.overlayContainer.children.length > 0) {
+        /*
         this.overlayContainer.alpha = 0;
         this.overlayContainer.getChildAt(0).inputEnabled = false;
+        */
     }
 
     let tween = this.game.add.tween(this.popupContainer).to({y:this.popupContainer.destinationY}, Popup.SPEED, Phaser.Easing.Bounce.In);
@@ -169,6 +171,9 @@ Popup.prototype.hide = function() {
         this.overlayContainer.destroy();
         this.removeAll(true);
         this.destroy();
+        if (callback != null) {
+            callback();
+        }
     }, this);
     tween.start();
 };

@@ -20,11 +20,11 @@ GAME.Game.prototype.create = function() {
     this.panel.createTitle("# " + GAME.config.puzzleLevel);
 
     let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
-    button.onClicked.add(this.onBtnBackClicked, this);
+    button.onClicked.add(this.popupConfirm, this);
     this.panel.addButton(button);
 
     button = new PanelButton(this.game, "R", "Green", AnimatedState.Dimension.Panel);
-    button.onClicked.add(this.onBtnRestartClicked, this);
+    button.onClicked.add(this.popupRestart, this);
     this.panel.addButton(button);
 
     /* Create the grid */
@@ -174,15 +174,22 @@ GAME.Game.prototype.loadGame = function() {
     this.state.start("Game");
 };
 
-GAME.Game.prototype.loadLevels = function() {
-    this.state.start("Level");
-};
+
+
+/* Actions */
 
 GAME.Game.prototype.restartLevel = function() {
-    this.state.restart();
+    this.hide(this.stateRestartLevel, this);
 };
 
+GAME.Game.prototype.loadLevels = function() {
+    console.log("LL");
+    this.hide(this.stateLoadLevels, this);
+};
+
+
 /* Events */
+
 
 GAME.Game.prototype.onGridTileToggled = function(tile) {
     this.refreshGrid();
@@ -202,14 +209,48 @@ GAME.Game.prototype.onClosePopupClicked = function() {
     this.close();
 };
 
-GAME.Game.prototype.onBtnRestartClicked = function(button) {
-    //this.hide(this.restartLevel, this);
-    let popup = new Popup(this.game);
-    popup.createOverlay(0.5);
-    popup.createTitle("Do you want to restart this puzzle?");
-    
-    popup.addButton("Yes", this.onBtnBackClicked, this);
-    popup.addButton("No", this.onClosePopupClicked, popup, "Red");
+/* State */
 
-    popup.generate();
+GAME.Game.prototype.stateRestartLevel = function() {
+    this.state.restart();
+};
+
+GAME.Game.prototype.stateLoadLevels = function() {
+    this.state.start("Level");
+};
+
+/* Popup */
+
+GAME.Game.prototype.popupCloseAndLoadLevels = function() {
+    this.popup.hide(this.loadLevels.bind(this));
+};
+
+GAME.Game.prototype.popupCloseAndRestart = function() {
+    this.popup.hide(this.restartLevel.bind(this));
+};
+
+GAME.Game.prototype.popupClose = function() {
+    this.popup.close();
+};
+
+GAME.Game.prototype.popupRestart = function() {
+    this.popup = new Popup(this.game);
+    this.popup.createOverlay(0.5);
+    this.popup.createTitle("Do you want to restart this puzzle?");
+    
+    this.popup.addButton("Yes", this.popupCloseAndRestart, this);
+    this.popup.addButton("No", this.popupClose, this, "Red");
+
+    this.popup.generate();
+};
+
+GAME.Game.prototype.popupConfirm = function() {
+    this.popup = new Popup(this.game);
+    this.popup.createOverlay(0.5);
+    this.popup.createTitle("Are you sure you want to leave ?");
+    
+    this.popup.addButton("Yes", this.popupCloseAndLoadLevels, this);
+    this.popup.addButton("No", this.popupClose, this, "Red");
+
+    this.popup.generate();
 };
