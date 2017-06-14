@@ -44,7 +44,7 @@ GAME.Game.prototype.createGrid = function() {
 
     this.grid = new Grid(this.game, puzzle);
     this.grid.colors['lighted'] = 0xf7c200;
-    this.grid.onTileToggled.add(this.onGridTileToggled, this);
+    this.grid.onTileToggled.add(this.refreshGrid, this);
     this.gridContainer.addChild(this.grid);
 
     this.gridContainer.x = (this.game.width - this.gridContainer.width) / 2;
@@ -52,6 +52,9 @@ GAME.Game.prototype.createGrid = function() {
 };
 
 GAME.Game.prototype.refreshGrid = function() {
+    /* Reset all the tweens */
+    this.grid.resetTiles();
+
     /* Get existings color position */
     let existingTiles = this.grid.getTilesFromColor(this.grid.colors.lighted);
 
@@ -97,9 +100,30 @@ GAME.Game.prototype.refreshGrid = function() {
         }
     }, this);
 
+    /* Verify that no toggled light illuminate each other */
+    let illuminatedTiles = [];
+    this.grid.getTilesFromColor(this.grid.colors.toggled).forEach(function(tile) {
+        this.lightTile(tile, true).forEach(function(lightedTile) {
+            let isNew = true;
+            illuminatedTiles.forEach(function(illuminatedTile) {
+                if (illuminatedTile.gridX == lightedTile.gridX && illuminatedTile.gridY == lightedTile.gridY) {
+                    isNew = false;
+                }
+            }, this);
+            if (isNew) {
+                illuminatedTiles.push(lightedTile);
+            }
+        }, this);
+    }, this);
+
+    /* Blink the tiles */
+    console.log(illuminatedTiles);
+    illuminatedTiles.forEach(function(tile) {
+        this.grid.tiles[tile.gridY][tile.gridX].blink();
+    }, this);
+
     /* Check for solution */
     let isCompleted = false;
-    console.log(this.grid.getTilesFromColor(this.grid.colors.toggled).length + " vs " + this.grid.puzzle.answers.length);
     if (this.grid.getTilesFromColor(this.grid.colors.toggled).length == this.grid.puzzle.answers.length) {
         isCompleted = true;
         this.grid.getTilesFromColor(this.grid.colors.toggled).forEach(function(tile) {
@@ -120,7 +144,7 @@ GAME.Game.prototype.refreshGrid = function() {
     }
 };
 
-GAME.Game.prototype.lightTile = function(tile) {
+GAME.Game.prototype.lightTile = function(tile, toggledOnly) {
     let tiles = [];
 
     let neighboors = [{gridX:0, gridY:1, enable:true}, {gridX:0, gridY:-1, enable:true}, {gridX:1, gridY:0, enable:true}, {gridX:-1, gridY:0, enable:true}];
@@ -139,24 +163,20 @@ GAME.Game.prototype.lightTile = function(tile) {
                     neighboor.enable = false;
                 }
 
-                if (neighboor.enable && !this.grid.tiles[nY][nX].isToggled) {
-                    tiles.push({gridX:nX, gridY:nY});
+                if (toggledOnly) {
+                    if (neighboor.enable && this.grid.tiles[nY][nX].isToggled) {
+                        tiles.push({gridX:nX, gridY:nY});
+                    }
+                } else {
+                    if (neighboor.enable && !this.grid.tiles[nY][nX].isToggled) {
+                        tiles.push({gridX:nX, gridY:nY});
+                    }
                 }
             }
         }, this);
     }
     return tiles;
 };
-
-
-
-/* Load states */
-
-GAME.Game.prototype.loadGame = function() {
-    this.state.start("Game");
-};
-
-
 
 /* Actions */
 
@@ -167,14 +187,6 @@ GAME.Game.prototype.restartLevel = function() {
 GAME.Game.prototype.loadLevels = function() {
     console.log("LL");
     this.hide(this.stateLoadLevels, this);
-};
-
-
-/* Events */
-
-
-GAME.Game.prototype.onGridTileToggled = function(tile) {
-    this.refreshGrid();
 };
 
 /* State */

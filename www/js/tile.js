@@ -7,12 +7,18 @@ function Tile(game) {
     this.isToggled = false;
 
     this.init();
+
+    this.tweens = {};
 };
 
 Tile.prototype = Object.create(Phaser.Group.prototype);
 Tile.prototype.constructor = Tile;
 
 /* Helpers */
+
+Tile.prototype.blink = function() {
+    this.tweens.blink = this.game.add.tween(this.floor).to({alpha:0}, 500, "Linear", true, 0, -1).yoyo(true, 100);
+};
 
 Tile.prototype.colorize = function(newColor) {
     this.floor.tint = newColor;
@@ -35,6 +41,13 @@ Tile.prototype.setColor = function(newColor) {
 Tile.prototype.toggle = function(newColor) {
     if (this.setColor(newColor)) {
         this.isToggled = !this.isToggled;
+    }
+};
+
+Tile.prototype.reset = function() {
+    if (this.tweens.blink != null) {
+        this.tweens.blink.stop();
+        this.floor.alpha = 1;
     }
 };
 

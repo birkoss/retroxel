@@ -137,6 +137,14 @@ Grid.prototype.isInBound = function(gridX, gridY) {
     return !(gridX < 0 || gridY < 0 || gridX >= this.gridWidth || gridY >= this.gridHeight);
 };
 
+Grid.prototype.resetTiles = function() {
+    for (let gridY=0; gridY<this.gridHeight; gridY++) {
+        for (let gridX=0; gridX<this.gridWidth; gridX++) {
+            this.tiles[gridY][gridX].reset();
+        }
+    }
+};
+
 /* Events */
 
 Grid.prototype.selectTile = function(Grid, pointer) {
