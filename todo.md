@@ -6,7 +6,6 @@
 
 * Main (state)
     * Find a name :D
-    * Rewrite using the AnimatedState
 
 * Puzzles (state)
     * Rename to ChoosePuzzle

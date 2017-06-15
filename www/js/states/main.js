@@ -2,43 +2,39 @@ var GAME = GAME || {};
 
 GAME.Main = function() {};
 
-GAME.Main.prototype = {
-    create: function() {
-        this.backgroundContainer = this.game.add.group();
-        this.titleContainer = this.game.add.group();
-        this.buttonsContainer = this.game.add.group();
+GAME.Difficulty.prototype = new AnimatedState();
 
-        let text = this.game.add.bitmapText(0, 0, "font:gui", "[NAME HERE]", 30);
-        text.y = (this.game.height/4) - text.height/2;
-        text.x = (this.game.width - text.width) / 2;
-        this.titleContainer.addChild(text);
+GAME.Main.prototype.create = function() {
+    /* Create the title */
+    this.titleContainer = this.game.add.group();
+    this.titleContainer.animation = AnimatedState.Animation.SlideDown;
 
-        let button = new PanelButton(this.game, "Play");
-        button.y = (this.game.height/4*2) - button.height/2;
-        button.x = (this.game.width - button.width)/2;
-        button.onClicked.add(this.onPlayButtonClicked, this);
-        this.buttonsContainer.addChild(button);
+    let text = this.game.add.bitmapText(0, 0, "font:gui", "[NAME HERE]", 30);
+    text.y = (this.game.height/4) - text.height/2;
+    text.x = (this.game.width - text.width) / 2;
+    this.titleContainer.addChild(text);
 
-        this.titleContainer.originalX = this.titleContainer.x;
-        this.buttonsContainer.originalX = this.buttonsContainer.x;
-        this.titleContainer.destinationX = this.titleContainer.x - this.game.width;
-        this.buttonsContainer.destinationX = this.buttonsContainer.x + this.game.width;
+    /* Create the buttons */
+    this.buttonsContainer = this.game.add.group();
+    this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
 
-        this.titleContainer.x = this.titleContainer.destinationX;
-        this.buttonsContainer.x = this.buttonsContainer.destinationX;
+    let button = new PanelButton(this.game, "Play");
+    button.y = (this.game.height/4*2) - button.height/2;
+    button.x = (this.game.width - button.width)/2;
+    button.onClicked.add(this.loadPuzzles, this);
+    this.buttonsContainer.addChild(button);
 
-        this.show();
-    },
-    show: function() {
-        this.game.add.tween(this.titleContainer).to({x:this.titleContainer.originalX}, GAME.config.speed, Phaser.Easing.Elastic.Out).start();
-        this.game.add.tween(this.buttonsContainer).to({x:this.buttonsContainer.originalX}, GAME.config.speed, Phaser.Easing.Elastic.Out).start();
-    },
-    hide: function(callback, context) {
-        this.game.add.tween(this.titleContainer).to({x:this.titleContainer.destinationX}, GAME.config.speed, Phaser.Easing.Elastic.In).start();
-        let tween = this.game.add.tween(this.buttonsContainer).to({x:this.buttonsContainer.destinationX}, GAME.config.speed, Phaser.Easing.Elastic.In).start();
-        tween.onComplete.add(callback, context);
-    },
-    onPlayButtonClicked: function() {
-        this.hide(function() { this.state.start('Difficulty') }, this);
-    }
+    /* Prepare the animations */
+    this.containers.push(this.titleContainer);
+    this.containers.push(this.buttonsContainer);
+
+    this.show();
+};
+
+GAME.Main.prototype.loadPuzzles = function() {
+    this.hide(this.stateLoadPuzzles, this);
+};
+
+GAME.Main.prototype.stateLoadPuzzles = function() {
+    this.state.start('Difficulty');
 };
