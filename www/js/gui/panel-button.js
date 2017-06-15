@@ -42,6 +42,25 @@ PanelButton.prototype.setLabel = function(newLabel) {
     this.label.y += (this.background.height - this.label.height) / 2;
 };
 
+PanelButton.prototype.setSubtitle = function(newSubtitle) {
+    this.subtitle = this.game.add.bitmapText(0, 0, "font:gui", newSubtitle, 10);
+    this.subtitle.anchor.set(0.5, 0.5);
+    this.subtitle.x += this.subtitle.width/2;
+    this.subtitle.y += this.subtitle.height/2;
+    this.addChild(this.subtitle);
+
+    this.background.resize(this.dimension.width, this.dimension.height);
+    this.getChildAt(0).width = this.dimension.width;
+    this.getChildAt(0).height = this.dimension.height;
+
+    this.subtitle.x += (this.background.width - this.subtitle.width) / 2;
+    this.subtitle.y += (this.background.height - this.subtitle.height) / 2;
+
+    this.subtitle.y += this.label.height/2;
+
+    this.label.y -= (this.subtitle.height/2) + 4;
+};
+
 PanelButton.prototype.disable = function() {
     this.alpha = 0.3;
 };

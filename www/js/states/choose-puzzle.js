@@ -35,9 +35,14 @@ GAME.ChoosePuzzle.prototype.create = function() {
             this.cache.getJSON("data:" + puzzle.id).forEach(function(difficulty) {
                 totalPuzzle += difficulty.total;
             }, this);
-            console.log(totalPuzzle);
-            console.log(puzzle);
+            let totalCompleted = 0;
+            for (let difficulty in GAME.config.puzzles[puzzle.id]) {
+                totalCompleted += GAME.config.puzzles[puzzle.id][difficulty].length;
+            }
+            //let pctCompletion = (totalCompleted/totalPuzzle*100);
+
             let button = new PanelButton(this.game, puzzle.name, "", buttonDimension);
+            button.setSubtitle(totalCompleted + " / " + totalPuzzle);
             button.puzzle = puzzle.id;
             button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
             button.x = (this.game.width - button.width)/2;
