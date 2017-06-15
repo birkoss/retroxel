@@ -35,6 +35,13 @@ GAME.ChoosePuzzle.prototype.create = function() {
             this.buttonsContainer.addChild(button);
         }, this);
 
+        /* Add a new button to show more puzzles to come... */
+        button = new PanelButton(this.game, "Coming soon", "", {width:200, height:40});
+        button.disable();
+        button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+        button.x = (this.game.width - button.width)/2;
+        this.buttonsContainer.addChild(button);
+
         /* Prepare the animations */
         this.containers.push(this.panelContainer);
         this.containers.push(this.buttonsContainer);

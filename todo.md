@@ -10,7 +10,6 @@
 * Puzzles (state)
     * Show the puzzle progression in button background
     * Show a preview of the puzzle in the button
-    * Add a new disabled puzzle showing more to come...
 
 * Difficulty (state)
     * Rename to ChooseDifficulty
