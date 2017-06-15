@@ -8,7 +8,6 @@
     * Find a name :D
 
 * Puzzles (state)
-    * Show the puzzle progression in button background
     * Show a preview of the puzzle in the button
 
 * Difficulty (state)
