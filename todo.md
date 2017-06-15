@@ -8,7 +8,6 @@
     * Find a name :D
 
 * Game (state)
-    * Rename to Puzzle
     * Animation
         * Light the grid on a time based delay (starting around the tile and going further)
             * Instead of simply changing the color, create another frame and scale it

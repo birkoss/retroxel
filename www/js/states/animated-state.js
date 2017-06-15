@@ -61,8 +61,6 @@ AnimatedState.prototype = {
             let tween = null;
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
-                    console.log(container.y);
-                    console.log(container.destinationY);
                 case AnimatedState.Animation.SlideUp:
                     tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Exponential.In);
                     break;

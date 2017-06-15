@@ -1,14 +1,14 @@
 var GAME = GAME || {};
 
-GAME.Game = function() {};
+GAME.PlayPuzzle = function() {};
 
-GAME.Game.prototype = new AnimatedState();
+GAME.PlayPuzzle.prototype = new AnimatedState();
 
-GAME.Game.prototype.preload = function() {
+GAME.PlayPuzzle.prototype.preload = function() {
     this.load.json("data:puzzle", "data/" + GAME.config.puzzleName + "_" + GAME.config.puzzleDifficulty + ".json");
 };
 
-GAME.Game.prototype.create = function() {
+GAME.PlayPuzzle.prototype.create = function() {
     this.game.stage.backgroundColor = 0x333333;
 
     /* Create the panel */
@@ -52,7 +52,7 @@ GAME.Game.prototype.create = function() {
     this.show();
 };
 
-GAME.Game.prototype.createGrid = function() {
+GAME.PlayPuzzle.prototype.createGrid = function() {
     let puzzle = this.cache.getJSON("data:puzzle")[GAME.config.puzzleLevel];
 
     this.grid = new Grid(this.game, puzzle);
@@ -64,7 +64,7 @@ GAME.Game.prototype.createGrid = function() {
     this.gridContainer.y = this.panelContainer.height + (((this.game.height - this.panelContainer.height) - this.gridContainer.height) / 2);
 };
 
-GAME.Game.prototype.refreshGrid = function() {
+GAME.PlayPuzzle.prototype.refreshGrid = function() {
     /* Reset all the tweens */
     this.grid.resetTiles();
 
@@ -169,7 +169,7 @@ GAME.Game.prototype.refreshGrid = function() {
     }
 };
 
-GAME.Game.prototype.lightTile = function(tile, toggledOnly) {
+GAME.PlayPuzzle.prototype.lightTile = function(tile, toggledOnly) {
     let tiles = [];
 
     let neighboors = [{gridX:0, gridY:1, enable:true}, {gridX:0, gridY:-1, enable:true}, {gridX:1, gridY:0, enable:true}, {gridX:-1, gridY:0, enable:true}];
@@ -205,46 +205,46 @@ GAME.Game.prototype.lightTile = function(tile, toggledOnly) {
 
 /* Actions */
 
-GAME.Game.prototype.restartLevel = function() {
+GAME.PlayPuzzle.prototype.restartLevel = function() {
     this.hide(this.stateRestartLevel, this);
 };
 
-GAME.Game.prototype.loadLevels = function() {
+GAME.PlayPuzzle.prototype.loadLevels = function() {
     this.hide(this.stateLoadLevels, this);
 };
 
 /* State */
 
-GAME.Game.prototype.stateRestartLevel = function() {
+GAME.PlayPuzzle.prototype.stateRestartLevel = function() {
     this.state.restart();
 };
 
-GAME.Game.prototype.stateLoadLevels = function() {
+GAME.PlayPuzzle.prototype.stateLoadLevels = function() {
     this.state.start("ChooseLevel");
 };
 
 /* Popup */
 
-GAME.Game.prototype.popupCloseAndNextLevel = function() {
+GAME.PlayPuzzle.prototype.popupCloseAndNextLevel = function() {
     /* Save that we are currently at the next puzzle */
     GAME.config.puzzleLevel++;
     GAME.save();
     this.popup.hide(this.restartLevel.bind(this));
 };
 
-GAME.Game.prototype.popupCloseAndLoadLevels = function() {
+GAME.PlayPuzzle.prototype.popupCloseAndLoadLevels = function() {
     this.popup.hide(this.loadLevels.bind(this));
 };
 
-GAME.Game.prototype.popupCloseAndRestart = function() {
+GAME.PlayPuzzle.prototype.popupCloseAndRestart = function() {
     this.popup.hide(this.restartLevel.bind(this));
 };
 
-GAME.Game.prototype.popupClose = function() {
+GAME.PlayPuzzle.prototype.popupClose = function() {
     this.popup.close();
 };
 
-GAME.Game.prototype.popupRestart = function() {
+GAME.PlayPuzzle.prototype.popupRestart = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
     this.popup.createTitle("Do you want to restart this puzzle?");
@@ -255,7 +255,7 @@ GAME.Game.prototype.popupRestart = function() {
     this.popup.generate();
 };
 
-GAME.Game.prototype.popupConfirm = function() {
+GAME.PlayPuzzle.prototype.popupConfirm = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
     this.popup.createTitle("Are you sure you want to leave ?");
@@ -266,7 +266,7 @@ GAME.Game.prototype.popupConfirm = function() {
     this.popup.generate();
 };
 
-GAME.Game.prototype.popupGameOver = function() {
+GAME.PlayPuzzle.prototype.popupGameOver = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
     this.popup.createTitle("You won!");
@@ -285,7 +285,7 @@ GAME.Game.prototype.popupGameOver = function() {
     this.popup.generate();
 };
 
-GAME.Game.prototype.popupHelp = function() {
+GAME.PlayPuzzle.prototype.popupHelp = function() {
     this.popup = new PopupHelp(this.game);
     this.popup.createOverlay(0.5);
     this.popup.createTitle("");

@@ -49,7 +49,6 @@ GAME.game.state.add('Main', GAME.Main);
 GAME.game.state.add('ChoosePuzzle', GAME.ChoosePuzzle);
 GAME.game.state.add('ChooseDifficulty', GAME.ChooseDifficulty);
 GAME.game.state.add('ChooseLevel', GAME.ChooseLevel);
-GAME.game.state.add('Size', GAME.Size);
-GAME.game.state.add('Game', GAME.Game);
+GAME.game.state.add('PlayPuzzle', GAME.PlayPuzzle);
 
 GAME.game.state.start('Boot');
