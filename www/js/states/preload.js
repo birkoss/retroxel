@@ -28,8 +28,9 @@ GAME.Preload.prototype = {
 
         this.load.image('help:rule2', 'images/help/rule2.png');
         this.load.image('help:rule1-wrong', 'images/help/rule1-wrong.png');
+        this.load.json("data:puzzles", "data/puzzles.json");
     },
     create: function() {
-        this.state.start("Main");
+        this.state.start("ChoosePuzzle");
     }
 };

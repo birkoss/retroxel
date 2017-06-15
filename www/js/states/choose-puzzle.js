@@ -5,7 +5,9 @@ GAME.ChoosePuzzle = function() {};
 GAME.ChoosePuzzle.prototype = new AnimatedState();
 
 GAME.ChoosePuzzle.prototype.preload = function() {
-        this.load.json("data:puzzles", "data/puzzles.json");
+    this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
+        this.load.json("data:" + puzzle.id, "data/" + puzzle.id + ".json");
+    }, this);
 };
 
 GAME.ChoosePuzzle.prototype.create = function() {
@@ -23,11 +25,19 @@ GAME.ChoosePuzzle.prototype.create = function() {
         this.panel.addButton(button);
 
         /* Create the puzzles list */
+        let buttonDimension = {width:200, height:60};
+
         this.buttonsContainer = this.game.add.group();
         this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
 
         this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
-            let button = new PanelButton(this.game, puzzle.name, "", {width:200, height:40});
+            let totalPuzzle = 0;
+            this.cache.getJSON("data:" + puzzle.id).forEach(function(difficulty) {
+                totalPuzzle += difficulty.total;
+            }, this);
+            console.log(totalPuzzle);
+            console.log(puzzle);
+            let button = new PanelButton(this.game, puzzle.name, "", buttonDimension);
             button.puzzle = puzzle.id;
             button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
             button.x = (this.game.width - button.width)/2;
@@ -36,7 +46,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
         }, this);
 
         /* Add a new button to show more puzzles to come... */
-        button = new PanelButton(this.game, "Coming soon", "", {width:200, height:40});
+        button = new PanelButton(this.game, "Coming soon", "", buttonDimension);
         button.disable();
         button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
         button.x = (this.game.width - button.width)/2;
