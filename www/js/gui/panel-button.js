@@ -7,6 +7,8 @@ function PanelButton(game, label, spriteSheet, dimension) {
 
     this.init();
 
+    this.isSelected = false;
+
     this.dimension = (dimension == null ? {width:120, height:40} : dimension);
     this.setLabel(label);
 };
@@ -20,6 +22,7 @@ PanelButton.prototype.init = function() {
     this.click.alpha = 0;
     this.click.inputEnabled = true;
     this.click.events.onInputDown.add(this.showOver, this);
+    this.click.events.onInputOut.add(this.moveOut, this);
     this.click.events.onInputUp.add(this.showNormal, this);
 
     this.background = new Ninepatch(this.game, "gui:btnNormal" + this.spriteSheet);
@@ -70,15 +73,24 @@ PanelButton.prototype.enable = function() {
 };
 
 PanelButton.prototype.showOver = function(sprite, pointer) {
-    console.log("showOver");
     if (this.alpha == 1) {
+        this.isSelected = true;
         this.background.changeTexture("gui:btnOver" + this.spriteSheet);
     }
 };
+
 PanelButton.prototype.showNormal = function(sprite, pointer) {
     console.log("showNormal");
     this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
-    if (this.alpha == 1 && this.click.input.pointerOver()) {
+    if (this.alpha == 1 && this.isSelected && this.click.input.pointerOver()) {
+        this.isSelected = false;
         this.onClicked.dispatch(this);
+    }
+};
+
+PanelButton.prototype.moveOut = function(sprite, pointer) {
+    if (this.isSelected) {
+        this.isSelected = false;
+        this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
     }
 };
