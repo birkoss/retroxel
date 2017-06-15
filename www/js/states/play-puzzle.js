@@ -272,9 +272,9 @@ GAME.PlayPuzzle.prototype.popupGameOver = function() {
     this.popup.createTitle("You won!");
     
     /* Save and unlock the next puzzle in this difficulty (if any...) */
-    if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length - 1) {
-        if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(GAME.config.puzzleLevel+1) == -1) {
-            GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].push(GAME.config.puzzleLevel+1);
+    if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length) {
+        if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(GAME.config.puzzleLevel) == -1) {
+            GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].push(GAME.config.puzzleLevel);
             GAME.save();
         }
         /* TODO: On the last, show the next difficulty if any... */

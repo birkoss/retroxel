@@ -37,6 +37,6 @@ GAME.Preload.prototype = {
         this.load.json("data:puzzles", "data/puzzles.json");
     },
     create: function() {
-        this.state.start("ChooseLevel");
+        this.state.start("Main");
     }
 };

@@ -9,9 +9,9 @@ GAME.config = {
 
 GAME.config.puzzles = {
     "Akari": {
-        Easy:[1], 
-        Medium:[1], 
-        Hard:[1]
+        Easy:[], 
+        Medium:[], 
+        Hard:[]
     }
 }
 
