@@ -7,9 +7,6 @@
 * Main (state)
     * Find a name :D
 
-* Puzzles (state)
-    * Show a preview of the puzzle in the button
-
 * Difficulty (state)
     * Rename to ChooseDifficulty
     * Show a preview of each difficulties progression in the button background

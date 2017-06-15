@@ -25,7 +25,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
         this.panel.addButton(button);
 
         /* Create the puzzles list */
-        let buttonDimension = {width:200, height:60};
+        let buttonDimension = {width:220, height:60};
 
         this.buttonsContainer = this.game.add.group();
         this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
@@ -43,6 +43,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
 
             let button = new PanelButton(this.game, puzzle.name, "", buttonDimension);
             button.setSubtitle(totalCompleted + " / " + totalPuzzle);
+            button.setImage("puzzle:" + puzzle.id);
             button.puzzle = puzzle.id;
             button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
             button.x = (this.game.width - button.width)/2;

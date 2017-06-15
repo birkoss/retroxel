@@ -30,6 +30,14 @@ PanelButton.prototype.init = function() {
     this.addChild(this.background);
 };
 
+PanelButton.prototype.setImage = function(image) {
+    this.image = this.create(0, 0, image);
+    this.label.x += this.image.width/2;
+    if (this.subtitle != null) {
+        this.subtitle.x += this.image.width/2;
+    }
+};
+
 PanelButton.prototype.setLabel = function(newLabel) {
     this.label = this.game.add.bitmapText(0, 0, "font:gui", newLabel, 20);
     this.label.anchor.set(0.5, 0.5);
