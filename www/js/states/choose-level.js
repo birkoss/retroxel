@@ -68,9 +68,11 @@ GAME.ChooseLevel.prototype.createLevels = function() {
     let index = (this.page * this.limit);
     for (let y=0; y<5; y++) {
         for (let x=0; x<4; x++) {
-            let button = new PanelButton(this.game, ++index, "", AnimatedState.Dimension.Panel);
-            if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(index) == -1) {
-                button.disable();
+            let isLocked = (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(++index) == -1);
+
+            let button = new PanelButton(this.game, (isLocked ? "??" : index), (isLocked ? "Grey" : ""), AnimatedState.Dimension.Panel);
+            if (isLocked) {
+                button.lock();
             } else {
                 button.onClicked.add(this.onBtnLevelClicked, this);
             }

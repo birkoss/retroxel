@@ -23,6 +23,9 @@ GAME.Preload.prototype = {
         this.load.spritesheet('gui:btnNormalRed', 'images/gui/buttons/normalRed.png', 2, 2);
         this.load.spritesheet('gui:btnOverRed', 'images/gui/buttons/overRed.png', 2, 2);
 
+        this.load.spritesheet('gui:btnNormalGrey', 'images/gui/buttons/normalGrey.png', 2, 2);
+        this.load.spritesheet('gui:btnOverGrey', 'images/gui/buttons/overGrey.png', 2, 2);
+
         this.load.bitmapFont('font:guiOutline', 'fonts/guiOutline.png', 'fonts/guiOutline.xml');
         this.load.bitmapFont('font:gui', 'fonts/gui.png', 'fonts/gui.xml');
 
@@ -34,6 +37,6 @@ GAME.Preload.prototype = {
         this.load.json("data:puzzles", "data/puzzles.json");
     },
     create: function() {
-        this.state.start("ChoosePuzzle");
+        this.state.start("ChooseLevel");
     }
 };

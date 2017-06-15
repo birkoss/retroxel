@@ -7,10 +7,6 @@
 * Main (state)
     * Find a name :D
 
-* Level (state)
-    * Find another way to disable the panel button
-    * Find another way to show the locked puzzle
-
 * Game (state)
     * Rename to Puzzle
     * Animation

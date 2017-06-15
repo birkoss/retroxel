@@ -30,6 +30,10 @@ PanelButton.prototype.init = function() {
     this.addChild(this.background);
 };
 
+PanelButton.prototype.lock = function() {
+   this.click.inputEnabled = false;
+};
+
 PanelButton.prototype.setImage = function(image) {
     this.image = this.create(0, 0, image);
     this.label.x += this.image.width/2;
@@ -73,7 +77,7 @@ PanelButton.prototype.setSubtitle = function(newSubtitle) {
 };
 
 PanelButton.prototype.disable = function() {
-    this.alpha = 0.3;
+    this.alpha = 0;
 };
 
 PanelButton.prototype.enable = function() {
