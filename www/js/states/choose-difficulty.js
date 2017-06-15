@@ -1,15 +1,14 @@
 var GAME = GAME || {};
 
-GAME.Difficulty = function() {};
+GAME.ChooseDifficulty = function() {};
 
-GAME.Difficulty.prototype = new AnimatedState();
+GAME.ChooseDifficulty.prototype = new AnimatedState();
 
-GAME.Difficulty.prototype.preload = function() {
-    this.load.json("data:puzzles", "data/puzzles.json");
+GAME.ChooseDifficulty.prototype.preload = function() {
     this.load.json("data:difficulties", "data/" + GAME.config.puzzleName + ".json");
 };
 
-GAME.Difficulty.prototype.create = function() {
+GAME.ChooseDifficulty.prototype.create = function() {
     /* Create the panel */
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
@@ -36,7 +35,7 @@ GAME.Difficulty.prototype.create = function() {
         Hard:"Red"
     };
     this.cache.getJSON("data:difficulties").forEach(function(difficulty) {
-        let button = new PanelButton(this.game, difficulty.name, colors[difficulty.name]);
+        let button = new PanelButton(this.game, difficulty.name, colors[difficulty.name], {width:200, height:60});
         button.difficulty = difficulty.name;
         button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
         button.x = (this.game.width - button.width)/2;
@@ -56,21 +55,21 @@ GAME.Difficulty.prototype.create = function() {
 
 /* Load states */
 
-GAME.Difficulty.prototype.loadLevels = function() {
+GAME.ChooseDifficulty.prototype.loadLevels = function() {
     this.state.start("Level");
 };
 
-GAME.Difficulty.prototype.loadPuzzles = function() {
+GAME.ChooseDifficulty.prototype.loadPuzzles = function() {
     this.state.start("ChoosePuzzle");
 };
 
 /* Events */
 
-GAME.Difficulty.prototype.onBtnBackClicked = function(button) {
+GAME.ChooseDifficulty.prototype.onBtnBackClicked = function(button) {
     this.hide(this.loadPuzzles, this);
 };
 
-GAME.Difficulty.prototype.onBtnDifficultyClicked = function(button) {
+GAME.ChooseDifficulty.prototype.onBtnDifficultyClicked = function(button) {
     GAME.config.puzzleDifficulty = button.difficulty;
     this.hide(this.loadLevels, this);
 };

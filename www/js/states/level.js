@@ -101,7 +101,7 @@ GAME.Level.prototype.loadGame = function() {
 };
 
 GAME.Level.prototype.loadDifficulties = function() {
-    this.state.start("Difficulty");
+    this.state.start("ChooseDifficulty");
 };
 
 /* Events */
