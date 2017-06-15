@@ -220,7 +220,7 @@ GAME.Game.prototype.stateRestartLevel = function() {
 };
 
 GAME.Game.prototype.stateLoadLevels = function() {
-    this.state.start("Level");
+    this.state.start("ChooseLevel");
 };
 
 /* Popup */

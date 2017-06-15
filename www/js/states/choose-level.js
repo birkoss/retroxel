@@ -1,14 +1,14 @@
 var GAME = GAME || {};
 
-GAME.Level = function() {};
+GAME.ChooseLevel = function() {};
 
-GAME.Level.prototype = new AnimatedState();
+GAME.ChooseLevel.prototype = new AnimatedState();
 
-GAME.Level.prototype.preload = function() {
+GAME.ChooseLevel.prototype.preload = function() {
     this.load.json("data:puzzle", "data/" + GAME.config.puzzleName + "_" + GAME.config.puzzleDifficulty + ".json");
 };
 
-GAME.Level.prototype.create = function() {
+GAME.ChooseLevel.prototype.create = function() {
     /* Create the panel */
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
@@ -58,7 +58,7 @@ GAME.Level.prototype.create = function() {
     this.show();
 };
 
-GAME.Level.prototype.createLevels = function() {
+GAME.ChooseLevel.prototype.createLevels = function() {
     let puzzleTotal = this.cache.getJSON("data:puzzle").length;
 
     this.navigator.setTitle((this.page+1) + " / " + (puzzleTotal/this.limit));
@@ -96,26 +96,26 @@ GAME.Level.prototype.createLevels = function() {
 
 /* Load states */
 
-GAME.Level.prototype.loadGame = function() {
+GAME.ChooseLevel.prototype.loadGame = function() {
     this.state.start("Game");
 };
 
-GAME.Level.prototype.loadDifficulties = function() {
+GAME.ChooseLevel.prototype.loadDifficulties = function() {
     this.state.start("ChooseDifficulty");
 };
 
 /* Events */
 
-GAME.Level.prototype.onBtnBackClicked = function(button) {
+GAME.ChooseLevel.prototype.onBtnBackClicked = function(button) {
     this.hide(this.loadDifficulties, this);
 };
 
-GAME.Level.prototype.onBtnLevelClicked = function(button) {
+GAME.ChooseLevel.prototype.onBtnLevelClicked = function(button) {
     GAME.config.puzzleLevel = button.level;
     this.hide(this.loadGame, this);
 };
 
-GAME.Level.prototype.onBtnNavigatorClicked = function(button) {
+GAME.ChooseLevel.prototype.onBtnNavigatorClicked = function(button) {
     this.page += button.direction;
     this.createLevels();
 };

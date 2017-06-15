@@ -57,7 +57,7 @@ GAME.ChooseDifficulty.prototype.create = function() {
 /* Load states */
 
 GAME.ChooseDifficulty.prototype.loadLevels = function() {
-    this.state.start("Level");
+    this.state.start("ChooseLevel");
 };
 
 GAME.ChooseDifficulty.prototype.loadPuzzles = function() {

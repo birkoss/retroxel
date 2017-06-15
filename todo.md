@@ -8,7 +8,6 @@
     * Find a name :D
 
 * Level (state)
-    * Rename to ChooseLevel
     * Find another way to disable the panel button
     * Find another way to show the locked puzzle
 
@@ -19,16 +18,5 @@
             * Instead of simply changing the color, create another frame and scale it
             * Disable the click while doing it
     * Bottom panel
-        * Button HELP
-            * Show the Help Popup
         * Text when error are detected
             * Show an error when a rule is broken
-    * Help Popup
-        * Fullscreen
-        * Panel Top
-            * Btn Close X, Red
-            * Title: Help
-        * Panel Bottom
-            * Navigator (Previous, Next, and pages count)
-        * Content
-            * Text + Image

@@ -48,7 +48,7 @@ GAME.game.state.add('Preload', GAME.Preload);
 GAME.game.state.add('Main', GAME.Main);
 GAME.game.state.add('ChoosePuzzle', GAME.ChoosePuzzle);
 GAME.game.state.add('ChooseDifficulty', GAME.ChooseDifficulty);
-GAME.game.state.add('Level', GAME.Level);
+GAME.game.state.add('ChooseLevel', GAME.ChooseLevel);
 GAME.game.state.add('Size', GAME.Size);
 GAME.game.state.add('Game', GAME.Game);
 
