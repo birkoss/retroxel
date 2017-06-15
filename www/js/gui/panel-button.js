@@ -67,7 +67,7 @@ PanelButton.prototype.setSubtitle = function(newSubtitle) {
     this.subtitle.x += (this.background.width - this.subtitle.width) / 2;
     this.subtitle.y += (this.background.height - this.subtitle.height) / 2;
 
-    this.subtitle.y += this.label.height/2;
+    this.subtitle.y += 10;
 
     this.label.y -= (this.subtitle.height/2) + 4;
 };

@@ -36,6 +36,7 @@ GAME.ChooseDifficulty.prototype.create = function() {
     };
     this.cache.getJSON("data:difficulties").forEach(function(difficulty) {
         let button = new PanelButton(this.game, difficulty.name, colors[difficulty.name], {width:200, height:60});
+        button.setSubtitle(GAME.config.puzzles[GAME.config.puzzleName][difficulty.name].length + " / " + difficulty.total);
         button.difficulty = difficulty.name;
         button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
         button.x = (this.game.width - button.width)/2;

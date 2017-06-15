@@ -7,10 +7,6 @@
 * Main (state)
     * Find a name :D
 
-* Difficulty (state)
-    * Rename to ChooseDifficulty
-    * Show a preview of each difficulties progression in the button background
-
 * Level (state)
     * Rename to ChooseLevel
     * Find another way to disable the panel button
