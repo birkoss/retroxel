@@ -22,7 +22,7 @@ AnimatedState.prototype = {
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
                     container.originalY = container.y;
-                    container.destinationY = container.y - container.height;
+                    container.destinationY = container.y - this.game.height;
 
                     container.y = container.destinationY;
                     break;
@@ -61,11 +61,13 @@ AnimatedState.prototype = {
             let tween = null;
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
+                    console.log(container.y);
+                    console.log(container.destinationY);
                 case AnimatedState.Animation.SlideUp:
-                    tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Exponential.Out);
+                    tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Exponential.In);
                     break;
                 case AnimatedState.Animation.SlideRight:
-                    tween = this.game.add.tween(container).to({x:container.destinationX}, AnimatedState.Speed, Phaser.Easing.Exponential.Out);
+                    tween = this.game.add.tween(container).to({x:container.destinationX}, AnimatedState.Speed, Phaser.Easing.Exponential.In);
                     break;
             }
 

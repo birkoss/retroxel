@@ -36,5 +36,5 @@ GAME.Main.prototype.loadPuzzles = function() {
 };
 
 GAME.Main.prototype.stateLoadPuzzles = function() {
-    this.state.start('Difficulty');
+    this.state.start('ChoosePuzzle');
 };

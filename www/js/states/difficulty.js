@@ -61,7 +61,7 @@ GAME.Difficulty.prototype.loadLevels = function() {
 };
 
 GAME.Difficulty.prototype.loadPuzzles = function() {
-    this.state.start("Puzzle");
+    this.state.start("ChoosePuzzle");
 };
 
 /* Events */

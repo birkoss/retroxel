@@ -46,7 +46,7 @@ GAME.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS
 GAME.game.state.add('Boot', GAME.Boot);
 GAME.game.state.add('Preload', GAME.Preload);
 GAME.game.state.add('Main', GAME.Main);
-GAME.game.state.add('Puzzle', GAME.Puzzle);
+GAME.game.state.add('ChoosePuzzle', GAME.ChoosePuzzle);
 GAME.game.state.add('Difficulty', GAME.Difficulty);
 GAME.game.state.add('Level', GAME.Level);
 GAME.game.state.add('Size', GAME.Size);

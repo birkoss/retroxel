@@ -30,6 +30,6 @@ GAME.Preload.prototype = {
         this.load.image('help:rule1-wrong', 'images/help/rule1-wrong.png');
     },
     create: function() {
-        this.state.start("Game");
+        this.state.start("Main");
     }
 };

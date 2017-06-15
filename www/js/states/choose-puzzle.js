@@ -1,16 +1,14 @@
 var GAME = GAME || {};
 
-GAME.Puzzle = function() {
-    console.log("GP");
-};
+GAME.ChoosePuzzle = function() {};
 
-GAME.Puzzle.prototype = new AnimatedState();
+GAME.ChoosePuzzle.prototype = new AnimatedState();
 
-GAME.Puzzle.prototype.preload = function() {
+GAME.ChoosePuzzle.prototype.preload = function() {
         this.load.json("data:puzzles", "data/puzzles.json");
 };
 
-GAME.Puzzle.prototype.create = function() {
+GAME.ChoosePuzzle.prototype.create = function() {
 
         /* Create the panel */
         this.panelContainer = this.game.add.group();
@@ -46,20 +44,20 @@ GAME.Puzzle.prototype.create = function() {
 
 /* Load states */
 
-GAME.Puzzle.prototype.loadMain = function() {
+GAME.ChoosePuzzle.prototype.loadMain = function() {
     this.state.start("Main");
 };
 
-GAME.Puzzle.prototype.loadDifficulties = function() {
+GAME.ChoosePuzzle.prototype.loadDifficulties = function() {
     this.state.start("Difficulty");
 };
 
 /* Events */
 
-GAME.Puzzle.prototype.onBtnBackClicked = function(button) {
+GAME.ChoosePuzzle.prototype.onBtnBackClicked = function(button) {
     this.hide(this.loadMain, this);
 };
-GAME.Puzzle.prototype.onBtnPuzzleClicked = function(button) {
+GAME.ChoosePuzzle.prototype.onBtnPuzzleClicked = function(button) {
     GAME.config.puzzleName = button.puzzle;
     this.hide(this.loadDifficulties, this);
 };
