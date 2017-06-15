@@ -13,7 +13,7 @@ GAME.Level.prototype.create = function() {
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
 
-    this.panel = new Panel(this.game, "Puzzle");
+    this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
     this.panel.createTitle(GAME.config.puzzleDifficulty);
 
@@ -25,7 +25,7 @@ GAME.Level.prototype.create = function() {
     this.navigatorContainer = this.game.add.group();
     this.navigatorContainer.animation = AnimatedState.Animation.SlideUp;
 
-    this.navigator = new Panel(this.game, "Puzzle", AnimatedState.Dimension.Navigator.height);
+    this.navigator = new Panel(this.game, AnimatedState.Dimension.Navigator.height);
     this.navigatorContainer.addChild(this.navigator);
     this.navigator.createTitle("1 / 2");
 

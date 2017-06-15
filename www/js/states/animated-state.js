@@ -46,10 +46,10 @@ AnimatedState.prototype = {
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
                 case AnimatedState.Animation.SlideUp:
-                    this.game.add.tween(container).to({y:container.originalY}, AnimatedState.Speed, Phaser.Easing.Elastic.Out).start();
+                    this.game.add.tween(container).to({y:container.originalY}, AnimatedState.Speed, Phaser.Easing.Exponential.Out).start();
                     break;
                 case AnimatedState.Animation.SlideRight:
-                    this.game.add.tween(container).to({x:container.originalX}, AnimatedState.Speed, Phaser.Easing.Elastic.Out).start();
+                    this.game.add.tween(container).to({x:container.originalX}, AnimatedState.Speed, Phaser.Easing.Exponential.Out).start();
                     break;
             }
         }, this);
@@ -62,10 +62,10 @@ AnimatedState.prototype = {
             switch (container.animation) {
                 case AnimatedState.Animation.SlideDown:
                 case AnimatedState.Animation.SlideUp:
-                    tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Elastic.Out);
+                    tween = this.game.add.tween(container).to({y:container.destinationY}, AnimatedState.Speed, Phaser.Easing.Exponential.Out);
                     break;
                 case AnimatedState.Animation.SlideRight:
-                    tween = this.game.add.tween(container).to({x:container.destinationX}, AnimatedState.Speed, Phaser.Easing.Elastic.Out);
+                    tween = this.game.add.tween(container).to({x:container.destinationX}, AnimatedState.Speed, Phaser.Easing.Exponential.Out);
                     break;
             }
 

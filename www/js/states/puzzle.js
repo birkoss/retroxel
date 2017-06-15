@@ -16,7 +16,7 @@ GAME.Puzzle.prototype.create = function() {
         this.panelContainer = this.game.add.group();
         this.panelContainer.animation = AnimatedState.Animation.SlideDown;
 
-        this.panel = new Panel(this.game, "Puzzle");
+        this.panel = new Panel(this.game);
         this.panelContainer.addChild(this.panel);
         this.panel.createTitle("Puzzle");
         

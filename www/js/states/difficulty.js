@@ -14,7 +14,7 @@ GAME.Difficulty.prototype.create = function() {
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
 
-    this.panel = new Panel(this.game, "Puzzle");
+    this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
     this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
         if (GAME.config.puzzleName == puzzle.id) {
