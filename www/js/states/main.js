@@ -2,7 +2,7 @@ var GAME = GAME || {};
 
 GAME.Main = function() {};
 
-GAME.Difficulty.prototype = new AnimatedState();
+GAME.Main.prototype = new AnimatedState();
 
 GAME.Main.prototype.create = function() {
     /* Create the title */
