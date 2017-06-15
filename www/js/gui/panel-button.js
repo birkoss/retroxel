@@ -15,12 +15,12 @@ PanelButton.prototype = Object.create(Phaser.Group.prototype);
 PanelButton.prototype.constructor = PanelButton;
 
 PanelButton.prototype.init = function() {
-    let click = this.create(0, 0, "tile:blank");
-    click.tint = 0xff00ff;
-    click.alpha = 0;
-    click.inputEnabled = true;
-    click.events.onInputDown.add(this.showOver, this);
-    click.events.onInputUp.add(this.showNormal, this);
+    this.click = this.create(0, 0, "tile:blank");
+    this.click.tint = 0xff00ff;
+    this.click.alpha = 0;
+    this.click.inputEnabled = true;
+    this.click.events.onInputDown.add(this.showOver, this);
+    this.click.events.onInputUp.add(this.showNormal, this);
 
     this.background = new Ninepatch(this.game, "gui:btnNormal" + this.spriteSheet);
     this.background.inputEnabled = true;
@@ -70,13 +70,15 @@ PanelButton.prototype.enable = function() {
 };
 
 PanelButton.prototype.showOver = function(sprite, pointer) {
+    console.log("showOver");
     if (this.alpha == 1) {
         this.background.changeTexture("gui:btnOver" + this.spriteSheet);
     }
 };
 PanelButton.prototype.showNormal = function(sprite, pointer) {
+    console.log("showNormal");
     this.background.changeTexture("gui:btnNormal" + this.spriteSheet);
-    if (this.alpha == 1) {
+    if (this.alpha == 1 && this.click.input.pointerOver()) {
         this.onClicked.dispatch(this);
     }
 };
