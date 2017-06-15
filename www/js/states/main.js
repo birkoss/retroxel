@@ -18,7 +18,7 @@ GAME.Main.prototype.create = function() {
     this.buttonsContainer = this.game.add.group();
     this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
 
-    let button = new PanelButton(this.game, "Play");
+    let button = new PanelButton(this.game, "Play", "", {width:200, height:60});
     button.y = (this.game.height/4*2) - button.height/2;
     button.x = (this.game.width - button.width)/2;
     button.onClicked.add(this.loadPuzzles, this);
