@@ -5,7 +5,41 @@
         * On buttons container, maybe animate the buttons individually
 
 * Main (state)
+    * Keywords
+        * Concept
+            * Tile
+            * Grid
+            * Block
+            * Color
+            * Puzzle
+            * Pixel
+            * Logic (logic puzzle)
+            * Retro
+            * Matrix
+        * Verb
+            * Toggle
+            * Flipping
+            * Switching
+            * Lighting
+            * Matching
+    
     * Find a name :D
+        * Pixly (Taken)
+        * GridZ
+        * TileZ
+        * Toggly Tiles
+        * Griddy Tiles
+        * Gready Tiles
+        * Toggle Me
+        * Color
+        * Puzzle Up
+        * Flippy Grid
+        * PuzzTile
+        * Blocks
+        * Tile of Grid
+        * Flipid
+        * Tile Out
+        * GridVale
 
 * Game (state)
     * Animation
