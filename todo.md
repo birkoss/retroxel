@@ -22,9 +22,17 @@
             * Switching
             * Lighting
             * Matching
+            * Pixelate
     
     * Find a name :D
         * Pixly (Taken)
+        * Pixel8 (Taken)
+        * Retrolor (Retro + Color)
+        * Retroxel (Retro + Pixel)
+        * Retrozzle/Retrozle
+        * Retzle
+        * Flipolor
+
         * GridZ
         * TileZ
         * Toggly Tiles
