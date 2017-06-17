@@ -1,8 +1,8 @@
-daemon.txt
+*.keystore
+*.apk
 *.swp
 
 hooks/
 platforms/
 plugins/
-plugins/
-plugins/
+node_modules/

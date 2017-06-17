@@ -9,7 +9,7 @@ GAME.Main.prototype.create = function() {
     this.titleContainer = this.game.add.group();
     this.titleContainer.animation = AnimatedState.Animation.SlideDown;
 
-    let text = this.game.add.bitmapText(0, 0, "font:gui", "[NAME HERE]", 30);
+    let text = this.game.add.bitmapText(0, 0, "font:gui", "Retroxel", 30);
     text.y = (this.game.height/4) - text.height/2;
     text.x = (this.game.width - text.width) / 2;
     this.titleContainer.addChild(text);

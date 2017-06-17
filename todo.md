@@ -3,51 +3,11 @@
     * Find icons (Previous, Next, Help, Reload)
     * Verify the animations
         * On buttons container, maybe animate the buttons individually
+    * See achivements in the store
 
-* Main (state)
-    * Keywords
-        * Concept
-            * Tile
-            * Grid
-            * Block
-            * Color
-            * Puzzle
-            * Pixel
-            * Logic (logic puzzle)
-            * Retro
-            * Matrix
-        * Verb
-            * Toggle
-            * Flipping
-            * Switching
-            * Lighting
-            * Matching
-            * Pixelate
-    
-    * Find a name :D
-        * Pixly (Taken)
-        * Pixel8 (Taken)
-        * Retrolor (Retro + Color)
-        * Retroxel (Retro + Pixel)
-        * Retrozzle/Retrozle
-        * Retzle
-        * Flipolor
-
-        * GridZ
-        * TileZ
-        * Toggly Tiles
-        * Griddy Tiles
-        * Gready Tiles
-        * Toggle Me
-        * Color
-        * Puzzle Up
-        * Flippy Grid
-        * PuzzTile
-        * Blocks
-        * Tile of Grid
-        * Flipid
-        * Tile Out
-        * GridVale
+* Preload
+    * Make a better spash screen
+    * Make a better loading animation
 
 * Game (state)
     * Animation
