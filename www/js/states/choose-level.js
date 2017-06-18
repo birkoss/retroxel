@@ -67,6 +67,11 @@ GAME.ChooseLevel.prototype.createLevels = function() {
     let padding = 16;
     let index = (this.page * this.limit);
     let isLocked = false;
+    /* Lock the first puzzle of each following page (never on the first page) when they are not unlocked */
+    if (index > 0 && GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(index) == -1) {
+        isLocked = true;
+    }
+
     for (let y=0; y<5; y++) {
         for (let x=0; x<4; x++) {
             index++;
