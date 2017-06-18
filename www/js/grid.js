@@ -69,17 +69,6 @@ Grid.prototype.createGrid = function() {
         this.tiles.push(rows);
     }
 
-    if (this.puzzle.disabledTiles != undefined) {
-        this.puzzle.disabledTiles.forEach(function(tile) {
-            this.tiles[tile.gridY][tile.gridX].disable(this.colors.disabled);
-        }, this);
-    }
-
-    if (this.puzzle.labels != undefined) {
-        this.puzzle.labels.forEach(function(label) {
-            this.tiles[label.gridY][label.gridX].setLabel(label.label);
-        }, this);
-    }
 };
 
 /* Helpers */

@@ -1,7 +1,7 @@
 var GAME = GAME || {};
 
 GAME.config = {
-    puzzleName:"Akari",
+    puzzleName:"Snake",
     puzzleDifficulty:"Easy",
     puzzleLevel:1,
     speed:800
