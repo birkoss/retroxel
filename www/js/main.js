@@ -12,6 +12,11 @@ GAME.config.puzzles = {
         Easy:[], 
         Medium:[], 
         Hard:[]
+    },
+    "Snake": {
+        Easy:[], 
+        Medium:[], 
+        Hard:[]
     }
 }
 
@@ -29,11 +34,21 @@ GAME.save = function() {
     localStorage.setItem('game_config', JSON.stringify(data));
 };
 
+/* Better loading methods to NOW overwrite the defaults puzzles config */
 GAME.load = function() {
     let data = localStorage.getItem('game_config');
     if (data != null) {
         data = JSON.parse(data);
-        GAME.config = Object.assign(GAME.config, data);
+
+        for (let obj in data) {
+            switch (typeof data[obj]) {
+                case 'object':
+                    GAME.config[obj] = Object.assign(GAME.config[obj], data[obj]);
+                    break;
+                default:
+                    GAME.config[obj] = data[obj];
+            }
+        }
     }
 };
 

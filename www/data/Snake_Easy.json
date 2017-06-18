@@ -1,0 +1,15 @@
+[
+    {
+        "height":5,
+        "width":5,
+        "answer": "####.#....#####....#....#",
+        "start": {
+            "gridX":3,
+            "gridY":0
+        },
+        "end": {
+            "gridX":4,
+            "gridY":4
+        }
+    }
+]
