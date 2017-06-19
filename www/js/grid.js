@@ -68,10 +68,26 @@ Grid.prototype.createGrid = function() {
         }
         this.tiles.push(rows);
     }
-
 };
 
 /* Helpers */
+
+Grid.prototype.createLabel = function(labels, direction, position) {
+    let limit = (direction == "x" ? this.gridWidth : this.gridHeight);
+    console.log(limit);
+
+    for (let i=0; i<limit; i++) {
+        let tile = new Tile(this.game);
+        tile.x = tile.y = i * (tile.width + this.padding);
+        if (direction == "x") {
+            tile.y = this.gridHeight * (tile.width + this.padding);
+        } else {
+            tile.x = this.gridHeight * (tile.width + this.padding);
+        }
+        tile.colorize(0xff00ff);
+        this.tilesContainer.addChild(tile);
+    }
+};
 
 Grid.prototype.getNeighboors = function(gridX, gridY) {
     let neighboors = [];

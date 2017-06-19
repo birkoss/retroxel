@@ -12,6 +12,9 @@ PUZZLE.Snake.prototype.create = function(puzzle, grid) {
 
     this.grid.colors['lighted'] = 0xf7c200;
     this.grid.onTileToggled.add(this.refreshGrid, this);
+
+    grid.createLabel(puzzle.labels.x, "x", 0);
+    grid.createLabel(puzzle.labels.y, "y", 0);
 };
 
 PUZZLE.Snake.prototype.refreshGrid = function() {
