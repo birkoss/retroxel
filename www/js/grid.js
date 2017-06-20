@@ -84,9 +84,15 @@ Grid.prototype.createLabel = function(labels, direction, position) {
         } else {
             tile.x = this.gridHeight * (tile.width + this.padding);
         }
-        tile.colorize(0xff00ff);
+        tile.colorize(this.colors.label);
+        tile.setLabel(labels[i]);
         this.tilesContainer.addChild(tile);
     }
+
+    let background = this.backgroundContainer.create(0, 0, "tile:blank");
+    background.width = this.tilesContainer.width + this.padding*2;
+    background.height = this.tilesContainer.height + this.padding*2;
+    background.tint = this.colors.background;
 };
 
 Grid.prototype.getNeighboors = function(gridX, gridY) {
