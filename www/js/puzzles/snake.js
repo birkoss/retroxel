@@ -8,153 +8,82 @@ PUZZLE.Snake.prototype = Object.create(PUZZLE.Puzzle.prototype);
 PUZZLE.Snake.prototype.constructor = PUZZLE.Snake;
 
 PUZZLE.Snake.prototype.create = function(puzzle, grid) {
+    this.puzzle = puzzle;
     this.grid = grid;
 
-    this.grid.colors['lighted'] = 0xf7c200;
+    this.grid.colors['toggled'] = 0x4493a0;
     this.grid.colors['label'] = 0x666666;
+    this.grid.colors['disabled'] = 0x85c226;
+    this.grid.colors['labelNormal'] = 0xffffff;
+    this.grid.colors['labelCorrect'] = 0xaaaaaa;
+    this.grid.colors['labelOver'] = 0xff795e;
     this.grid.onTileToggled.add(this.refreshGrid, this);
 
-    grid.createLabel(puzzle.labels.x, "x", 0);
-    grid.createLabel(puzzle.labels.y, "y", 0);
+    let labels = {x:[], y:[]};
+    let index = 0;
+    for (let gridY=0; gridY<puzzle.height; gridY++) {
+        let totalX = 0;
+        for (let gridX=0; gridX<puzzle.width; gridX++) {
+            index = (gridY * puzzle.width) + gridX;
+            totalX += (puzzle.answer[index] == "#" ? 1 : 0);
+            if (labels.y.length <= gridX) {
+                labels.y.push(0);
+            }
+            labels.y[gridX] += (puzzle.answer[index] == "#" ? 1 : 0);
+        }
+        labels.x.push(totalX);
+    }
+
+    this.grid.tiles[puzzle.start.gridY][puzzle.start.gridX].disable(this.grid.colors.disabled);
+    this.grid.tiles[puzzle.end.gridY][puzzle.end.gridX].disable(this.grid.colors.disabled);
+    grid.createLabel(labels.y, "x", 0);
+    grid.createLabel(labels.x, "y", 0);
+
+    this.refreshGrid();
 };
 
 PUZZLE.Snake.prototype.refreshGrid = function() {
-    /* Reset all the tweens */
-    this.grid.resetTiles();
+    let answer = "";
 
-    /* Get existings color position */
-    let existingTiles = this.grid.getTilesFromColor(this.grid.colors.lighted);
-
-    /* Get all positions from each toggled tiles */
-    let newTiles = [];
-    this.grid.getTilesFromColor(this.grid.colors.toggled).forEach(function(tile) {
-        this.lightTile(tile).forEach(function(lightedTile) {
-            let isNew = true;
-            newTiles.forEach(function(newTile) {
-                if (newTile.gridX == lightedTile.gridX && newTile.gridY == lightedTile.gridY) {
-                    isNew = false;
-                }
-            }, this);
-            if (isNew) {
-                newTiles.push(lightedTile);
+    /* Get all totals */
+    let totals = {x:[], y:[]};
+    let toggled = 0;
+    for (let gridY=0; gridY<this.grid.gridHeight; gridY++) {
+        let totalX = 0;
+        for (let gridX=0; gridX<this.grid.gridWidth; gridX++) {
+            toggled = (this.grid.tiles[gridY][gridX].isToggled || this.grid.tiles[gridY][gridX].isDisabled ? 1 : 0);
+            answer += (toggled == 1 ? "#" : ".");
+            totalX += toggled;
+            if (totals.y.length <= gridX) {
+                totals.y.push(0);
             }
-        }, this);
-    }, this);
-
-    /* Find NEW tiles to highlight */
-    newTiles.forEach(function(tile) {
-        let isNew = true;
-        existingTiles.forEach(function(oldTile) {
-            if (oldTile.gridX == tile.gridX && oldTile.gridY == tile.gridY) {
-                isNew = false;
-            }
-        }, this);
-        if (isNew) {
-            this.grid.tiles[tile.gridY][tile.gridX].colorize(this.grid.colors.lighted);
+            totals.y[gridX] += toggled;
         }
-    }, this);
-
-    /* Find OLD tiles to return to normal */
-    existingTiles.forEach(function(tile) {
-        let isRemoved = true;
-        newTiles.forEach(function(newTile) {
-            if (newTile.gridX == tile.gridX && newTile.gridY == tile.gridY) {
-                isRemoved = false;
-            }
-        }, this);
-        if (isRemoved) {
-            this.grid.tiles[tile.gridY][tile.gridX].colorize(this.grid.colors.normal);
-        }
-    }, this);
-
-    /* Verify that no toggled light illuminate each other */
-    let illuminatedTiles = [];
-    this.grid.getTilesFromColor(this.grid.colors.toggled).forEach(function(tile) {
-        this.lightTile(tile, true).forEach(function(lightedTile) {
-            let isNew = true;
-            illuminatedTiles.forEach(function(illuminatedTile) {
-                if (illuminatedTile.gridX == lightedTile.gridX && illuminatedTile.gridY == lightedTile.gridY) {
-                    isNew = false;
-                }
-            }, this);
-            if (isNew) {
-                illuminatedTiles.push(lightedTile);
-            }
-        }, this);
-    }, this);
-
-    /* Blink the tiles */
-    illuminatedTiles.forEach(function(tile) {
-        this.grid.tiles[tile.gridY][tile.gridX].blink();
-    }, this);
-
-    /* Check each labels */
-    this.grid.getTilesFromColor(this.grid.colors.disabled).forEach(function(tile) {
-        if (tile.label != null) {
-            let total = 0;
-            this.grid.getNeighboors(tile.gridX, tile.gridY).forEach(function(neighboor) {
-                if (neighboor.floor.tint == this.grid.colors.toggled) {
-                    total++;
-                }
-            }, this);
-            tile.label.tint = (total > tile.label.text ? 0xff0000 : 0xffffff);
-        }
-    }, this);
-
-    /* Check for solution */
-    let isCompleted = false;
-    if (this.grid.getTilesFromColor(this.grid.colors.toggled).length == this.grid.puzzle.answers.length) {
-        isCompleted = true;
-        this.grid.getTilesFromColor(this.grid.colors.toggled).forEach(function(tile) {
-            let isOk = false;
-            this.grid.puzzle.answers.forEach(function(answer) {
-                if (tile.gridX == answer.gridX && tile.gridY == answer.gridY) {
-                    isOk = true;
-                }
-            }, this);
-            if (!isOk) {
-                isCompleted = false;
-            }
-        }, this);
+        totals.x.push(totalX);
     }
 
-    if (isCompleted) {
+    /* Compare with the labels */
+    let labels = [
+    {total: totals.x, labels: this.grid.labels.y},
+    {total: totals.y, labels: this.grid.labels.x},
+    ];
+    labels.forEach(function(label) {
+        let index = 0;
+        label.total.forEach(function(total) {
+            let color = this.grid.colors.labelNormal;
+            if (label.labels[index].label.text == total) {
+                color = this.grid.colors.labelCorrect;
+            } else if (label.labels[index].label.text < total) {
+                color = this.grid.colors.labelOver;
+            }
+            label.labels[index].label.tint = color;
+            index++;
+        }, this);
+    }, this);
+
+    if (this.puzzle.answer == answer) {
         this.onCompleted.dispatch(this);
     }
-};
-
-PUZZLE.Snake.prototype.lightTile = function(tile, toggledOnly) {
-    let tiles = [];
-
-    let neighboors = [{gridX:0, gridY:1, enable:true}, {gridX:0, gridY:-1, enable:true}, {gridX:1, gridY:0, enable:true}, {gridX:-1, gridY:0, enable:true}];
-    let nX, nY = 0;
-    for (let i=1; i<Math.max(this.grid.gridWidth, this.grid.gridHeight); i++) {
-        neighboors.forEach(function(neighboor) {
-            if (neighboor.enable) {
-                nX = tile.gridX + (i * neighboor.gridX);
-                nY = tile.gridY + (i * neighboor.gridY);
-
-                if (!this.grid.isInBound(nX, nY)) {
-                    neighboor.enable = false;
-                }
-
-                if (neighboor.enable && this.grid.tiles[nY][nX].isDisabled) {
-                    neighboor.enable = false;
-                }
-
-                if (toggledOnly) {
-                    if (neighboor.enable && this.grid.tiles[nY][nX].isToggled) {
-                        tiles.push({gridX:nX, gridY:nY});
-                    }
-                } else {
-                    if (neighboor.enable && !this.grid.tiles[nY][nX].isToggled) {
-                        tiles.push({gridX:nX, gridY:nY});
-                    }
-                }
-            }
-        }, this);
-    }
-    return tiles;
 };
 
 PUZZLE.Snake.prototype.getHelpPages = function(popup) {

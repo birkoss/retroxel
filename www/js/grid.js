@@ -74,8 +74,6 @@ Grid.prototype.createGrid = function() {
 
 Grid.prototype.createLabel = function(labels, direction, position) {
     let limit = (direction == "x" ? this.gridWidth : this.gridHeight);
-    console.log(limit);
-
     for (let i=0; i<limit; i++) {
         let tile = new Tile(this.game);
         tile.x = tile.y = i * (tile.width + this.padding);
@@ -87,6 +85,11 @@ Grid.prototype.createLabel = function(labels, direction, position) {
         tile.colorize(this.colors.label);
         tile.setLabel(labels[i]);
         this.tilesContainer.addChild(tile);
+
+        if (this.labels == null) {
+            this.labels = {x:[], y:[]};
+        }
+        this.labels[direction].push(tile);
     }
 
     let background = this.backgroundContainer.create(0, 0, "tile:blank");
