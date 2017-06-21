@@ -33,7 +33,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
         this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
             let totalPuzzle = 0;
             this.cache.getJSON("data:" + puzzle.id).forEach(function(difficulty) {
-                totalPuzzle += difficulty.total;
+                totalPuzzle += parseInt(difficulty.total);
             }, this);
             let totalCompleted = 0;
             for (let difficulty in GAME.config.puzzles[puzzle.id]) {
