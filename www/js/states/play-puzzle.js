@@ -5,8 +5,6 @@ GAME.PlayPuzzle = function() {};
 GAME.PlayPuzzle.prototype = new AnimatedState();
 
 GAME.PlayPuzzle.prototype.preload = function() {
-    GAME.config.puzzleName = "Snake";
-    GAME.config.puzzleDifficulty = "Hard";
     this.load.json("data:puzzle", "data/" + GAME.config.puzzleName + "_" + GAME.config.puzzleDifficulty + ".json");
 };
 

@@ -1,4 +1,1 @@
-[
-    {"name":"Light Up","id":"Akari"},
-    {"name":"Snake", "id":"Snake"}
-]
+[{"id":"Akari","name":"Light Up"},{"id":"Snake","name":"Snake"}]

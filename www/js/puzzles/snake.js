@@ -44,9 +44,11 @@ PUZZLE.Snake.prototype.create = function(puzzle, grid) {
     grid.createLabel(labels.x, "y", 0);
 
     /* If this puzzle has disabledLabels, hide them */
-    puzzle.disabledLabels.forEach(function(label) {
-        this.grid.labels[label.gridX == this.grid.gridWidth ? 'y' : 'x'][label.gridX == this.grid.gridWidth ? label.gridY : label.gridX].label.alpha = 0;
-    }, this);
+    if (puzzle.disabledLabels != null) {
+        puzzle.disabledLabels.forEach(function(label) {
+            this.grid.labels[label.gridX == this.grid.gridWidth ? 'y' : 'x'][label.gridX == this.grid.gridWidth ? label.gridY : label.gridX].label.alpha = 0;
+        }, this);
+    }
 
     this.refreshGrid();
 };
