@@ -41,7 +41,7 @@ GAME.Preload.prototype = {
         }, this);
     },
     create: function() {
-        this.state.start("Main");
+        this.state.start("Options");
         //this.state.start("PlayPuzzle");
     }
 };

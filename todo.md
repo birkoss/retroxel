@@ -20,8 +20,6 @@
         * Text when error are detected
             * Show an error when a rule is broken
 
-* Translate in French
-
 * Add sound effects
     * Button click
     * Puzzle Completion
@@ -30,6 +28,15 @@
 
 * Main (state)
     * Add a new button Options
+        * Toggle language
         * Toggle MUSIC
         * Toggle SOUND
+
+* Regenerate Snake Easy puzzle
+    * With images
+
+* Re-think how the puzzle are generated (to be able to regenerate and keep track)
+    * In database
+    * Use a real id
+    * Use a md5 to be able to hash and compare for unique puzzle
 

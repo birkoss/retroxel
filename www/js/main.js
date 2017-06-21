@@ -5,7 +5,9 @@ GAME.config = {
     puzzleDifficulty:"Easy",
     puzzleLevel:1,
     speed:800,
-    lang:"fr"
+    lang:"fr",
+    music:false,
+    sound:false
 };
 
 GAME.config.puzzles = {
@@ -71,6 +73,7 @@ GAME.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS
 GAME.game.state.add('Boot', GAME.Boot);
 GAME.game.state.add('Preload', GAME.Preload);
 GAME.game.state.add('Main', GAME.Main);
+GAME.game.state.add('Options', GAME.Options);
 GAME.game.state.add('ChoosePuzzle', GAME.ChoosePuzzle);
 GAME.game.state.add('ChooseDifficulty', GAME.ChooseDifficulty);
 GAME.game.state.add('ChooseLevel', GAME.ChooseLevel);
