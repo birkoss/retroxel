@@ -34,10 +34,19 @@ PUZZLE.Snake.prototype.create = function(puzzle, grid) {
         labels.x.push(totalX);
     }
 
-    this.grid.tiles[puzzle.start.gridY][puzzle.start.gridX].disable(this.grid.colors.disabled);
-    this.grid.tiles[puzzle.end.gridY][puzzle.end.gridX].disable(this.grid.colors.disabled);
+    /* Mark START and END as disabled */
+    puzzle.disabledTiles.forEach(function(tile) {
+        this.grid.tiles[tile.gridY][tile.gridX].disable(this.grid.colors.disabled);
+    }, this);
+
+    /* Create the new labels tile */
     grid.createLabel(labels.y, "x", 0);
     grid.createLabel(labels.x, "y", 0);
+
+    /* If this puzzle has disabledLabels, hide them */
+    puzzle.disabledLabels.forEach(function(label) {
+        this.grid.labels[label.gridX == this.grid.gridWidth ? 'y' : 'x'][label.gridX == this.grid.gridWidth ? label.gridY : label.gridX].label.alpha = 0;
+    }, this);
 
     this.refreshGrid();
 };
