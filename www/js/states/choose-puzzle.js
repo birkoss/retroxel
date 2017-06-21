@@ -18,7 +18,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
 
         this.panel = new Panel(this.game);
         this.panelContainer.addChild(this.panel);
-        this.panel.createTitle("Puzzle");
+        this.panel.createTitle(__("Puzzle"));
         
         let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
         button.onClicked.add(this.onBtnBackClicked, this);
@@ -41,7 +41,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
             }
             //let pctCompletion = (totalCompleted/totalPuzzle*100);
 
-            let button = new PanelButton(this.game, puzzle.name, "", buttonDimension);
+            let button = new PanelButton(this.game, __(puzzle.name), "", buttonDimension);
             button.setSubtitle(totalCompleted + " / " + totalPuzzle);
             button.setImage("puzzle:" + puzzle.id);
             button.puzzle = puzzle.id;
@@ -52,7 +52,7 @@ GAME.ChoosePuzzle.prototype.create = function() {
         }, this);
 
         /* Add a new button to show more puzzles to come... */
-        button = new PanelButton(this.game, "Coming soon", "Grey", buttonDimension);
+        button = new PanelButton(this.game, __("Coming soon"), "Grey", buttonDimension);
         button.lock();
         button.alpha = 1;
         button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);

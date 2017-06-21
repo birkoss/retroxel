@@ -4,7 +4,8 @@ GAME.config = {
     puzzleName:"Snake",
     puzzleDifficulty:"Easy",
     puzzleLevel:1,
-    speed:800
+    speed:800,
+    lang:"fr"
 };
 
 GAME.config.puzzles = {
@@ -53,6 +54,15 @@ GAME.load = function() {
 };
 
 GAME.load();
+
+function __(key) {
+    let text = GAME.game.cache.getJSON("text:" + GAME.config.lang)[key];
+    if (text == null) {
+        text = key;
+    }
+
+    return text;
+}
 
 /* Phaser */
 

@@ -35,8 +35,13 @@ GAME.Preload.prototype = {
         this.load.image('puzzle:Akari', 'images/gui/puzzles/Akari.png');
 
         this.load.json("data:puzzles", "data/puzzles.json");
+
+        ["fr"].forEach(function(language) {
+            this.load.json("text:" + language, "i18n/" + language + ".json");
+        }, this);
     },
     create: function() {
-        this.state.start("PlayPuzzle");
+        this.state.start("Main");
+        //this.state.start("PlayPuzzle");
     }
 };
