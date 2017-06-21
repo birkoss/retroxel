@@ -4,6 +4,8 @@
     * Verify the animations
         * On buttons container, maybe animate the buttons individually
     * See achivements in the store
+    * Find a better way to save the data instead of local storage
+        * Save also on the web
 
 * Preload
     * Make a better spash screen
@@ -17,3 +19,17 @@
     * Bottom panel
         * Text when error are detected
             * Show an error when a rule is broken
+
+* Translate in French
+
+* Add sound effects
+    * Button click
+    * Puzzle Completion
+
+* Add ambiant music
+
+* Main (state)
+    * Add a new button Options
+        * Toggle MUSIC
+        * Toggle SOUND
+
