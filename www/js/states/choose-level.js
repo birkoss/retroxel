@@ -15,7 +15,7 @@ GAME.ChooseLevel.prototype.create = function() {
 
     this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
-    this.panel.createTitle(GAME.config.puzzleDifficulty);
+    this.panel.createTitle(__(GAME.config.puzzleDifficulty));
 
     let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
     button.onClicked.add(this.onBtnBackClicked, this);

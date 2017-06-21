@@ -115,10 +115,10 @@ GAME.PlayPuzzle.prototype.popupClose = function() {
 GAME.PlayPuzzle.prototype.popupRestart = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
-    this.popup.createTitle("Do you want to restart this puzzle?");
+    this.popup.createTitle(__("Do you want to restart this puzzle?"));
     
-    this.popup.addButton("Yes", this.popupCloseAndRestart, this);
-    this.popup.addButton("No", this.popupClose, this, "Red");
+    this.popup.addButton(__("Yes"), this.popupCloseAndRestart, this);
+    this.popup.addButton(__("No"), this.popupClose, this, "Red");
 
     this.popup.generate();
 };
@@ -126,10 +126,10 @@ GAME.PlayPuzzle.prototype.popupRestart = function() {
 GAME.PlayPuzzle.prototype.popupConfirm = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
-    this.popup.createTitle("Are you sure you want to leave ?");
+    this.popup.createTitle(__("Are you sure you want to leave?"));
     
-    this.popup.addButton("Yes", this.popupCloseAndLoadLevels, this);
-    this.popup.addButton("No", this.popupClose, this, "Red");
+    this.popup.addButton(__("Yes"), this.popupCloseAndLoadLevels, this);
+    this.popup.addButton(__("No"), this.popupClose, this, "Red");
 
     this.popup.generate();
 };
@@ -137,7 +137,7 @@ GAME.PlayPuzzle.prototype.popupConfirm = function() {
 GAME.PlayPuzzle.prototype.popupGameOver = function() {
     this.popup = new Popup(this.game);
     this.popup.createOverlay(0.5);
-    this.popup.createTitle("You won!");
+    this.popup.createTitle(__("You won!"));
     
     /* Save and unlock the next puzzle in this difficulty (if any...) */
     if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length) {
@@ -146,10 +146,10 @@ GAME.PlayPuzzle.prototype.popupGameOver = function() {
             GAME.save();
         }
         /* TODO: On the last, show the next difficulty if any... */
-        this.popup.addButton("Next", this.popupCloseAndNextLevel, this);
+        this.popup.addButton(__("Next"), this.popupCloseAndNextLevel, this);
     }
 
-    this.popup.addButton("Back", this.popupCloseAndLoadLevels, this, "Green");
+    this.popup.addButton(__("Back"), this.popupCloseAndLoadLevels, this, "Green");
     this.popup.generate();
 };
 

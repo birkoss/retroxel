@@ -17,7 +17,7 @@ GAME.ChooseDifficulty.prototype.create = function() {
     this.panelContainer.addChild(this.panel);
     this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
         if (GAME.config.puzzleName == puzzle.id) {
-            this.panel.createTitle(puzzle.name);
+            this.panel.createTitle(__(puzzle.name));
         }
     }, this);
 
@@ -35,7 +35,7 @@ GAME.ChooseDifficulty.prototype.create = function() {
         Hard:"Red"
     };
     this.cache.getJSON("data:difficulties").forEach(function(difficulty) {
-        let button = new PanelButton(this.game, difficulty.name, colors[difficulty.name], {width:200, height:60});
+        let button = new PanelButton(this.game, __(difficulty.name), colors[difficulty.name], {width:200, height:60});
         button.setSubtitle(GAME.config.puzzles[GAME.config.puzzleName][difficulty.name].length + " / " + difficulty.total);
         button.difficulty = difficulty.name;
         button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);

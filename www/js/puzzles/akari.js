@@ -166,16 +166,16 @@ PUZZLE.Akari.prototype.lightTile = function(tile, toggledOnly) {
 };
 
 PUZZLE.Akari.prototype.getHelpPages = function(popup) {
-    popup.addPage({'text':"You need to places light bulbs in white cells until the entire grid is lit up."});
-    popup.addPage({'text':"A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell."});
+    popup.addPage({'text': __("You need to places light bulbs in white cells until the entire grid is lit up.")});
+    popup.addPage({'text': __("A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell.")});
     popup.addPage([{
-        'text':"Rules #1\n\nNo two bulbs illuminate on each other."
+        'text':__("Rules #1\n\nNo two bulbs illuminate on each other.")
     },{
-        "text":"This is an example of two bulbs illuminating each other:"
+        "text":__("This is an example of two bulbs illuminating each other:")
     },{
         "img":"help:rule1-wrong"
         }
     ]);
-    popup.addPage([{'text':"Rules #2\n\nA black cell may have a number on it from 0 to 4, indicating how many bulbs must be placed adjacent to its four sides."},{"img":"help:rule2"}]);
-    popup.addPage({'text':"Rules #3\n\nAn unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count."});
+    popup.addPage([{'text':__("Rules #2\n\nA black cell may have a number on it from 0 to 4, indicating how many bulbs must be placed adjacent to its four sides.")},{"img":"help:rule2"}]);
+    popup.addPage({'text':__("Rules #3\n\nAn unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count.")});
 };
