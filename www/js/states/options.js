@@ -35,7 +35,7 @@ GAME.Options.prototype.create = function() {
         {"label":"FR", "value":"fr"},
         {"label":"EN", "value":"en"}
         ],
-        "config": GAME.config.lang
+        "config": "lang"
     },
     {
         "label":"Music", 
@@ -43,7 +43,7 @@ GAME.Options.prototype.create = function() {
         {"label":"ON", "value":true},
         {"label":"OFF", "value":false}
         ],
-        "config": GAME.config.music
+        "config": "music"
     },
     {
         "label":"Sound",
@@ -51,11 +51,9 @@ GAME.Options.prototype.create = function() {
         {"label":"ON", "value":true},
         {"label":"OFF", "value":false}
         ],
-        "config": GAME.config.sound
+        "config": "sound" 
     }
     ];
-
-    console.log(GAME.config);
 
     let startAt = 0;
     this.toggles = {};
@@ -67,7 +65,7 @@ GAME.Options.prototype.create = function() {
         let startX = this.game.width/4*3;
         let rowHeight = 0;
         setting.values.forEach(function(toggle) {
-            let button = new PanelButton(this.game, __(toggle.label), (setting.config == toggle.value ? "Green" : "Red"), {width:60, height:60});
+            let button = new PanelButton(this.game, __(toggle.label), (GAME.config[setting.config] == toggle.value ? "Green" : "Red"), {width:60, height:60});
             startX -= button.width;
             button.toggleSetting = setting;
             button.toggleValue = toggle;
@@ -120,10 +118,9 @@ GAME.Options.prototype.updateToggle = function(button) {
 };
 
 GAME.Options.prototype.toggleSetting = function(button) {
-    if (button.toggleSetting.config != button.toggleValue.value) {
-        button.toggleSetting.config = button.toggleValue.value;
-        console.log(button.toggleSetting.config);
-        console.log(GAME.config);
+    if (GAME.config[button.toggleSetting.config] != button.toggleValue.value) {
+        GAME.config[button.toggleSetting.config] = button.toggleValue.value;
+        GAME.save();
         this.updateToggle(button);
     }
 };

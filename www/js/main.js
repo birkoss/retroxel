@@ -27,7 +27,7 @@ GAME.scale = {sprite:3, normal:1};
 GAME.scale.normal = Math.max(1, Math.min(6, Math.floor(window.innerWidth / 320) * 2));
 
 GAME.save = function() {
-    let fields = ["puzzles", "puzzleName", "puzzleDifficulty", "puzzleLevel"];
+    let fields = ["puzzles", "puzzleName", "puzzleDifficulty", "puzzleLevel", "lang", "music", "sound"];
 
     let data = {};
     fields.forEach(function(field) {
@@ -58,12 +58,15 @@ GAME.load = function() {
 GAME.load();
 
 function __(key) {
-    let text = GAME.game.cache.getJSON("text:" + GAME.config.lang)[key];
-    if (text == null) {
-        text = key;
+    /* @TODO Need a better check bellow to prevent Phaser to query the cache */
+    if (GAME.game.cache.getJSON("text:" + GAME.config.lang)) {
+        let text = GAME.game.cache.getJSON("text:" + GAME.config.lang)[key];
+        if (text != null) {
+            key = text;
+        }
     }
 
-    return text;
+    return key;
 }
 
 /* Phaser */

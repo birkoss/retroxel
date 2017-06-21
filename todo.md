@@ -6,6 +6,7 @@
     * See achivements in the store
     * Find a better way to save the data instead of local storage
         * Save also on the web
+        * Save the UID instead of the index
 
 * Preload
     * Make a better spash screen
