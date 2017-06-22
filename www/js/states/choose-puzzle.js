@@ -24,12 +24,13 @@ GAME.ChoosePuzzle.prototype.create = function() {
         this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
 
         GAME.puzzles.forEach(function(single_puzzle) {
-            let totalPuzzle = 0;
+            let totalPuzzle = totalCompleted = 0;
             single_puzzle.difficulties.forEach(function(single_difficulty) {
                 totalPuzzle += parseInt(single_difficulty.total);
+                single_difficulty.puzzles.forEach(function(single_puzzle) {
+                    totalCompleted += (GAME.config.puzzles.indexOf(single_puzzle.uid) != -1 ? 1 : 0);
+                }, this);
             }, this);
-            let totalCompleted = 0;
-            /* TODO Calculate the completed */
 
             let button = new PanelButton(this.game, __(single_puzzle.name), "", buttonDimension);
             button.setSubtitle(totalCompleted + " / " + totalPuzzle);

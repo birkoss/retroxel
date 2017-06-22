@@ -51,7 +51,6 @@ GAME.PlayPuzzle.prototype.createGrid = function() {
     this.puzzle = new PUZZLE[GAME.config.puzzleName]();
 
     let puzzleData = G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid);
-    console.log(puzzleData);
     this.panel.createTitle("# " + puzzleData.id);
     this.puzzle.init(puzzleData);
 
@@ -92,7 +91,7 @@ GAME.PlayPuzzle.prototype.popupCloseAndNextLevel = function() {
     let nextPuzzleUid = G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid, 1);
     if (nextPuzzleUid != null) {
         /* Save that we are currently at the next puzzle */
-        GAME.config.puzzleUid = nextPuzzleUid;
+        GAME.config.puzzleUid = nextPuzzleUid.uid;
         GAME.save();
     }
     this.popup.hide(this.restartLevel.bind(this));

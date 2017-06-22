@@ -78,7 +78,7 @@ function G(puzzleName, puzzleDifficulty, gridUid, nextUid) {
 
     puzzles.forEach(function(single_grid, index) {
         if (single_grid.uid == gridUid) {
-            if (index == 0) {
+            if (nextUid == 0) {
                 item = single_grid;
             } else {
                 if (index + nextUid < puzzles.length) {

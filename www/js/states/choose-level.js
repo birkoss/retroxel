@@ -64,10 +64,16 @@ GAME.ChooseLevel.prototype.createLevels = function() {
     let padding = 16;
     let index = (this.page * this.limit);
 
+    let wasLocked = (index == 0 ? false : true);
     for (let y=0; y<5; y++) {
         for (let x=0; x<4; x++) {
             let puzzle = puzzles[index++];
-            let isLocked = (GAME.config.puzzles.indexOf(puzzle.uid) == -1 && index > 1);
+            let isLocked = (GAME.config.puzzles.indexOf(puzzle.uid) == -1);
+            /* ALways leave the next puzzle unlocked */
+            if (isLocked && !wasLocked) {
+                wasLocked = true;
+                isLocked = false;
+            }
 
             let button = new PanelButton(this.game, (isLocked ? "??" : index), (isLocked ? "Grey" : ""), AnimatedState.Dimension.Panel);
             if (isLocked) {
