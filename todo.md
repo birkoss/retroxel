@@ -24,10 +24,6 @@
 
 * Add ambiant music
 
-* Confirm it's OK on a 9x15 grid (vertically)
-
-* Generate an image for the Snake Puzzle button (ChoosePuzzle)
-
 * Create English rules for the Snake puzzle
     * Also in French
 

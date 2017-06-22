@@ -62,7 +62,7 @@ GAME.PlayPuzzle.prototype.createGrid = function() {
 
     /* Center the grid on the screen */
     this.gridContainer.x = (this.game.width - this.gridContainer.width) / 2;
-    this.gridContainer.y = this.panelContainer.height + (((this.game.height - this.panelContainer.height) - this.gridContainer.height) / 2);
+    this.gridContainer.y = this.panelContainer.height + (((this.game.height - this.panelContainer.height - this.navigatorContainer.height) - this.gridContainer.height) / 2);
 };
 
 /* Actions */
