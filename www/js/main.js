@@ -23,6 +23,8 @@ GAME.config.puzzles = {
     }
 }
 
+GAME.data = new DATA();
+
 GAME.scale = {sprite:3, normal:1};
 GAME.scale.normal = Math.max(1, Math.min(6, Math.floor(window.innerWidth / 320) * 2));
 
@@ -83,3 +85,7 @@ GAME.game.state.add('ChooseLevel', GAME.ChooseLevel);
 GAME.game.state.add('PlayPuzzle', GAME.PlayPuzzle);
 
 GAME.game.state.start('Boot');
+
+document.addEventListener('deviceready', function() {
+    GAME.data.init();
+});

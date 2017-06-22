@@ -1,35 +1,48 @@
 var DATA = function() {
-    this.db = window.sqlitePlugin.openDatabase({name: "retroxel.db"});
-
-    /* Check the version, and create/update depending on the version */
-    let version = 0;
-    this.db.transaction(function(tx) {
-        tx.executeSql("SELECT data FROM settings LIMIT 1", function(tx, rs) {
-            if (rs.rows.length == 1) {
-                version = parseInt(rs.rows.item(0)['data']);
-                /* Create tables */
-            }
-        });
-
-        /*
-        tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='settings';", function(tx, rs) {
-            if (rs.rows.length == 0) {
-            }
-        });
-        */
-
-        tx.executeSql("CREATE TABLE IF NOT EXISTS settings (id varchar(255) primary key, data text");
-        tx.
-    });
+    this.isLoaded = false;
 };
 
 DATA.version = 1;
+
+DATA.prototype.init = function() {
+    this.db = window.sqlitePlugin.openDatabase({name:"retroxel.db", location:'default'});
+
+    /* Make sure the database is at the latest version */
+    let version = 0;
+    this.db.transaction(function(tx) {
+        tx.executeSql("SELECT data FROM settings WHERE id == 'version' LIMIT 1", function(tx, rs) {
+            console.log("OUI");
+            if (rs.rows.length == 1) {
+                version = parseInt(rs.rows.item(0)['data']);
+            }
+        });
+
+        if (version < DATA.version) {
+            for (let v=version; v<=DATA.version; v++) {
+                switch (v) {
+                    case 1:
+                        tx.executeSql("CREATE TABLE IF NOT EXISTS settings (id varchar(255) primary key, data text");
+                        console.error("CREATING THE DATABASE");
+                        break;
+                }
+            }
+
+            DATA.saveSetting('version', DATA.version);
+        }
+    });
+
+    this.isLoaded = true;
+};
 
 DATA.prototype.loadConfig = function() {
 
 };
 
 DATA.prototype.saveConfig = function() {
+
+};
+
+DATA.prototype.saveSetting = function(key, data) {
 
 };
 
@@ -61,7 +74,3 @@ myDB.transaction(function(transaction) {
             });
 });
 */
-
-DATA.prototype.createTable = function(table) {
-
-    <
