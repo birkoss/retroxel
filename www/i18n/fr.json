@@ -16,6 +16,12 @@
     "You won!": "Vous avez gagné!",
     "Next": "Suivant",
     "Back": "Retour",
+
+    "Language": "Langue",
+    "Music": "Musique",
+    "Sound": "Son",
+    "ON": "OUI",
+    "OFF": "NON",
     
     "You need to places light bulbs in white cells until the entire grid is lit up.": "Vous devez placer des ampoules dans des cellules blanches jusqu'à ce que toutes les cellules sont éclairées",
     "A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell.": "Une ampoule éclaire horizontalement et verticalement jusqu'à être bloqué par une cellule noire",

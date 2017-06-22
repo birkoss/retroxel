@@ -32,7 +32,7 @@ GAME.Main.prototype.create = function() {
     this.navigatorContainer.addChild(this.navigator);
 
     button = new PanelButton(this.game, "!", "Green", AnimatedState.Dimension.Navigator);
-    button.onClicked.add(this.onBtnOptionsClicked, this);
+    button.onClicked.add(this.showOptions, this);
     this.navigator.addButton(button);
 
     this.navigatorContainer.y = this.game.height - this.navigatorContainer.height;
@@ -49,11 +49,14 @@ GAME.Main.prototype.loadPuzzles = function() {
     this.hide(this.stateLoadPuzzles, this);
 };
 
+GAME.Main.prototype.showOptions = function() {
+    this.hide(this.stateLoadOptions, this);
+};
+
 GAME.Main.prototype.stateLoadPuzzles = function() {
     this.state.start('ChoosePuzzle');
 };
 
-GAME.Main.prototype.onBtnOptionsClicked = function(button) {
-    /* TODO Add a hide() to do a transition */
-    this.state.start("Options");
+GAME.Main.prototype.stateLoadOptions = function() {
+    this.state.start('Options');
 };

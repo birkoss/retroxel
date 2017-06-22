@@ -34,5 +34,3 @@
         * Toggle SOUND
 
 * Review the button position in each states
-
-* Translate the Options

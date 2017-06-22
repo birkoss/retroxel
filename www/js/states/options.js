@@ -14,23 +14,16 @@ GAME.Options.prototype.create = function() {
     this.panel.createTitle(__("Options"));
 
     let button = new PanelButton(this.game, "X", "Red", AnimatedState.Dimension.Panel);
-    button.onClicked.add(this.onBtnBackClicked, this);
+    button.onClicked.add(this.loadMain, this);
     this.panel.addButton(button);
 
     /* Create the settings */
     this.settingsContainer = this.game.add.group();
     this.settingsContainer.animation = AnimatedState.Animation.SlideRight;
 
-    /*
-    let button = new PanelButton(this.game, __("Play"), "", {width:200, height:60});
-    button.y = (this.game.height/4*2) - button.height/2;
-    button.x = (this.game.width - button.width)/2;
-    button.onClicked.add(this.loadPuzzles, this);
-    this.buttonsContainer.addChild(button);
-    */
     this.settings = [
     {
-        "label":"Language", 
+        "label":__("Language"),
         "values": [
         {"label":"FR", "value":"fr"},
         {"label":"EN", "value":"en"}
@@ -38,18 +31,18 @@ GAME.Options.prototype.create = function() {
         "config": "lang"
     },
     {
-        "label":"Music", 
+        "label":__("Music"),
         "values": [
-        {"label":"ON", "value":true},
-        {"label":"OFF", "value":false}
+        {"label":__("ON"), "value":true},
+        {"label":__("OFF"), "value":false}
         ],
         "config": "music"
     },
     {
-        "label":"Sound",
+        "label":__("Sound"),
         "values": [
-        {"label":"ON", "value":true},
-        {"label":"OFF", "value":false}
+        {"label":__("ON"), "value":true},
+        {"label":__("OFF"), "value":false}
         ],
         "config": "sound" 
     }
@@ -87,21 +80,21 @@ GAME.Options.prototype.create = function() {
     this.settingsContainer.y = (this.game.height - this.settingsContainer.height) / 2;
 
     /* Prepare the animations */
-    //this.containers.push(this.settingsContainer);
+    this.containers.push(this.settingsContainer);
     this.containers.push(this.panelContainer);
 
     this.show();
 };
 
-GAME.Options.prototype.loadPuzzles = function() {
-    this.hide(this.stateLoadPuzzles, this);
+GAME.Options.prototype.loadMain = function() {
+    this.hide(this.stateLoadMain, this);
 };
 
 GAME.Options.prototype.stateLoadPuzzles = function() {
     this.state.start('ChoosePuzzle');
 };
 
-GAME.Options.prototype.onBtnBackClicked = function(button) {
+GAME.Options.prototype.stateLoadMain = function(button) {
     this.state.start("Main");
 };
 
