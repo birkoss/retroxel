@@ -33,6 +33,7 @@ GAME.Preload.prototype = {
         this.load.image('help:rule1-wrong', 'images/help/rule1-wrong.png');
 
         this.load.image('puzzle:Akari', 'images/gui/puzzles/Akari.png');
+        this.load.image('puzzle:Snake', 'images/gui/puzzles/Snake.png');
 
         this.load.json("data:puzzles", "data/puzzles.json");
 
