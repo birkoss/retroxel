@@ -98,5 +98,7 @@ PUZZLE.Snake.prototype.refreshGrid = function() {
 };
 
 PUZZLE.Snake.prototype.getHelpPages = function(popup) {
-    popup.addPage({'text':"To complete..."});
+    popup.addPage({'text':__("In the grid, the head and tail of the snake are already placed. You must trace a path between those two parts.")});
+    popup.addPage({'text':__("Rule #1\n\nThe path must never touch itself (not even diagonally)")});
+    popup.addPage({'text':__("Rule #2\n\nThe number outside the grid show how many cells must be traced in the corresponding row or column")});
 };

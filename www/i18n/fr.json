@@ -22,12 +22,18 @@
     "Sound": "Son",
     "ON": "OUI",
     "OFF": "NON",
+
+    "Help": "Aide",
     
     "You need to places light bulbs in white cells until the entire grid is lit up.": "Vous devez placer des ampoules dans des cellules blanches jusqu'à ce que toutes les cellules sont éclairées",
     "A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell.": "Une ampoule éclaire horizontalement et verticalement jusqu'à être bloqué par une cellule noire",
     "Rules #1\n\nNo two bulbs illuminate on each other.": "Règle #1\n\nAucune ampoule ne peut en éclairer une autre directement",
     "This is an example of two bulbs illuminating each other:": "Ceci est un exemple de deux ampoules qui s'éclairent:",
     "Rules #2\n\nA black cell may have a number on it from 0 to 4, indicating how many bulbs must be placed adjacent to its four sides.": "Règle #2\n\nUne cellule noire peut avoir un chiffre de 0 à 4, qui indique combien d'ampoules doivent être placé autour.",
-    "Rules #3\n\nAn unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count.": "Règle #3\n\nUne cellule noire sans nombre peut avoir des ampoules autour. Les ampoules placés diagonalement ne sont pas comptés dans ce total"
+    "Rules #3\n\nAn unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count.": "Règle #3\n\nUne cellule noire sans nombre peut avoir des ampoules autour. Les ampoules placés diagonalement ne sont pas comptés dans ce total",
+    
+    "In the grid, the head and tail of the snake are already placed. You must trace a path between those two parts.": "Dans la grille, la tête et la queue du serpent sont déjà colorés. Vous devez tracer un chemin entre ces deux points",
+    "Rule #1\n\nThe path must never touch itself (not even diagonally)": "Règle #1\n\nLe chemin ne doit jamais s'entre-toucher (même diagonnalement)",
+    "Rule #2\n\nThe number outside the grid show how many cells must be traced in the corresponding row or column": "Règle #2\n\nLe nombre à l'extérieur de la grille montre combien de cellules doit être tracés dans la rangée ou la colonne correspondante"
     
 }

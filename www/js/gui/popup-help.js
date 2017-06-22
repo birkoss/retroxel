@@ -83,7 +83,7 @@ PopupHelp.prototype.createPanel = function() {
     let group = container.group;
 
     this.panel = new Panel(this.game);
-    this.panel.createTitle("Help");
+    this.panel.createTitle(__("Help"));
     group.addChild(this.panel);
 
     let button = new PanelButton(this.game, "X", "Red", AnimatedState.Dimension.Panel);

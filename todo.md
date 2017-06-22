@@ -24,9 +24,6 @@
 
 * Add ambiant music
 
-* Create English rules for the Snake puzzle
-    * Also in French
-
 * Also allow browsing the puzzle by size
     * Ordered by size AND by difficulty
 
