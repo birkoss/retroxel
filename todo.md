@@ -1,12 +1,9 @@
 * General
     * Find a background concept for each states
-    * Find icons (Previous, Next, Help, Reload)
+    * Find icons (Previous, Next, Help, Reload, Options)
     * Verify the animations
         * On buttons container, maybe animate the buttons individually
-    * See achivements in the store
-    * Find a better way to save the data instead of local storage
-        * Save also on the web
-        * Save the UID instead of the index
+    * Save also on the web
 
 * Preload
     * Make a better spash screen
@@ -30,3 +27,15 @@
 * Confirm it's OK on a 9x15 grid (vertically)
 
 * Generate an image for the Snake Puzzle button (ChoosePuzzle)
+
+* Create English rules for the Snake puzzle
+    * Also in French
+
+* Also allow browsing the puzzle by size
+    * Ordered by size AND by difficulty
+
+* See if we could only show the UID instead of the index
+    * Check if weird starting at #500
+
+* PlayPuzzle (State)
+    * Code cleanup :)
