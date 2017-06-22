@@ -4,22 +4,21 @@ GAME.ChooseDifficulty = function() {};
 
 GAME.ChooseDifficulty.prototype = new AnimatedState();
 
-GAME.ChooseDifficulty.prototype.preload = function() {
-    this.load.json("data:difficulties", "data/" + GAME.config.puzzleName + ".json");
-};
-
 GAME.ChooseDifficulty.prototype.create = function() {
+    let puzzle = null;
+    GAME.puzzles.forEach(function(single_puzzle) {
+        if (GAME.config.puzzleName == single_puzzle.id) {
+            puzzle = single_puzzle;
+        }
+    }, this);
+
     /* Create the panel */
     this.panelContainer = this.game.add.group();
     this.panelContainer.animation = AnimatedState.Animation.SlideDown;
 
     this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
-    this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
-        if (GAME.config.puzzleName == puzzle.id) {
-            this.panel.createTitle(__(puzzle.name));
-        }
-    }, this);
+    this.panel.createTitle(__(puzzle.name));
 
     let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
     button.onClicked.add(this.onBtnBackClicked, this);
@@ -34,10 +33,11 @@ GAME.ChooseDifficulty.prototype.create = function() {
         Medium:"Green",
         Hard:"Red"
     };
-    this.cache.getJSON("data:difficulties").forEach(function(difficulty) {
-        let button = new PanelButton(this.game, __(difficulty.name), colors[difficulty.name], {width:200, height:60});
-        button.setSubtitle(GAME.config.puzzles[GAME.config.puzzleName][difficulty.name].length + " / " + difficulty.total);
-        button.difficulty = difficulty.name;
+    puzzle.difficulties.forEach(function(single_difficulty) {
+        let button = new PanelButton(this.game, __(single_difficulty.name), colors[single_difficulty.name], {width:200, height:60});
+        /* TODO Fix the current */
+        button.setSubtitle("?? / " + single_difficulty.total);
+        button.difficulty = single_difficulty.name;
         button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
         button.x = (this.game.width - button.width)/2;
         button.onClicked.add(this.onBtnDifficultyClicked, this);

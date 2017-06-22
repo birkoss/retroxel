@@ -54,5 +54,6 @@ GAME.Main.prototype.stateLoadPuzzles = function() {
 };
 
 GAME.Main.prototype.onBtnOptionsClicked = function(button) {
+    /* TODO Add a hide() to do a transition */
     this.state.start("Options");
 };

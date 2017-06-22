@@ -17,7 +17,7 @@ GAME.PlayPuzzle.prototype.create = function() {
 
     this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
-    this.panel.createTitle("# " + GAME.config.puzzleLevel);
+    this.panel.createTitle("# " + GAME.config.puzzleUid);
 
     let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
     button.onClicked.add(this.popupConfirm, this);
@@ -55,7 +55,9 @@ GAME.PlayPuzzle.prototype.create = function() {
 GAME.PlayPuzzle.prototype.createGrid = function() {
     this.puzzle = new PUZZLE[GAME.config.puzzleName]();
 
-    let puzzleData = this.cache.getJSON("data:puzzle")[GAME.config.puzzleLevel-1];
+    let puzzleData = this.cache.getJSON("data:puzzle").filter(function(puzzle) {
+        return puzzle.uid == this.puzzleUid;
+    }, this)[0];
     this.puzzle.init(puzzleData);
 
     this.grid = new Grid(this.game, puzzleData);
@@ -93,6 +95,7 @@ GAME.PlayPuzzle.prototype.stateLoadLevels = function() {
 
 GAME.PlayPuzzle.prototype.popupCloseAndNextLevel = function() {
     /* Save that we are currently at the next puzzle */
+    /* @TODO Find the next puzzle */
     GAME.config.puzzleLevel++;
     GAME.save();
     this.popup.hide(this.restartLevel.bind(this));
@@ -138,9 +141,10 @@ GAME.PlayPuzzle.prototype.popupGameOver = function() {
     this.popup.createTitle(__("You won!"));
     
     /* Save and unlock the next puzzle in this difficulty (if any...) */
+    /* TODO Find the next puzzle, if none ... */
     if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length) {
-        if (GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(GAME.config.puzzleLevel) == -1) {
-            GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].push(GAME.config.puzzleLevel);
+        if (GAME.config.puzzles.indexOf(GAME.config.puzzleUid) == -1) {
+            GAME.config.puzzles.push(GAME.config.puzzleUid);
             GAME.save();
         }
         /* TODO: On the last, show the next difficulty if any... */

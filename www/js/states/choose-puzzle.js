@@ -4,14 +4,7 @@ GAME.ChoosePuzzle = function() {};
 
 GAME.ChoosePuzzle.prototype = new AnimatedState();
 
-GAME.ChoosePuzzle.prototype.preload = function() {
-    this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
-        this.load.json("data:" + puzzle.id, "data/" + puzzle.id + ".json");
-    }, this);
-};
-
 GAME.ChoosePuzzle.prototype.create = function() {
-
         /* Create the panel */
         this.panelContainer = this.game.add.group();
         this.panelContainer.animation = AnimatedState.Animation.SlideDown;
@@ -30,21 +23,18 @@ GAME.ChoosePuzzle.prototype.create = function() {
         this.buttonsContainer = this.game.add.group();
         this.buttonsContainer.animation = AnimatedState.Animation.SlideRight;
 
-        this.cache.getJSON("data:puzzles").forEach(function(puzzle) {
+        GAME.puzzles.forEach(function(single_puzzle) {
             let totalPuzzle = 0;
-            this.cache.getJSON("data:" + puzzle.id).forEach(function(difficulty) {
-                totalPuzzle += parseInt(difficulty.total);
+            single_puzzle.difficulties.forEach(function(single_difficulty) {
+                totalPuzzle += parseInt(single_difficulty.total);
             }, this);
             let totalCompleted = 0;
-            for (let difficulty in GAME.config.puzzles[puzzle.id]) {
-                totalCompleted += GAME.config.puzzles[puzzle.id][difficulty].length;
-            }
-            //let pctCompletion = (totalCompleted/totalPuzzle*100);
+            /* TODO Calculate the completed */
 
-            let button = new PanelButton(this.game, __(puzzle.name), "", buttonDimension);
+            let button = new PanelButton(this.game, __(single_puzzle.name), "", buttonDimension);
             button.setSubtitle(totalCompleted + " / " + totalPuzzle);
-            button.setImage("puzzle:" + puzzle.id);
-            button.puzzle = puzzle.id;
+            button.setImage("puzzle:" + single_puzzle.id);
+            button.puzzle = single_puzzle.id;
             button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
             button.x = (this.game.width - button.width)/2;
             button.onClicked.add(this.onBtnPuzzleClicked, this);

@@ -1,64 +1,45 @@
 var GAME = GAME || {};
 
+/* Default values */
 GAME.config = {
-    puzzleName:"Snake",
-    puzzleDifficulty:"Easy",
-    puzzleLevel:1,
     speed:800,
     lang:"fr",
     music:false,
-    sound:false
+    sound:false,
+    puzzles: []
 };
-
-GAME.config.puzzles = {
-    "Akari": {
-        Easy:[], 
-        Medium:[], 
-        Hard:[]
-    },
-    "Snake": {
-        Easy:[], 
-        Medium:[], 
-        Hard:[]
-    }
-}
 
 GAME.scale = {sprite:3, normal:1};
 GAME.scale.normal = Math.max(1, Math.min(6, Math.floor(window.innerWidth / 320) * 2));
 
 GAME.save = function() {
-    let fields = ["puzzles", "puzzleName", "puzzleDifficulty", "puzzleLevel", "lang", "music", "sound"];
+    let fields = ["puzzles", "lang", "music", "sound"];
 
     let data = {};
     fields.forEach(function(field) {
         data[field] = GAME.config[field];
     }, this);
 
-    localStorage.setItem('game_config', JSON.stringify(data));
+    localStorage.setItem('retroxel_config', JSON.stringify(data));
 };
 
-/* Better loading methods to NOW overwrite the defaults puzzles config */
 GAME.load = function() {
-    let data = localStorage.getItem('game_config');
+    let data = localStorage.getItem('retroxel_config');
     if (data != null) {
         data = JSON.parse(data);
 
-        for (let obj in data) {
-            switch (typeof data[obj]) {
-                case 'object':
-                    GAME.config[obj] = Object.assign(GAME.config[obj], data[obj]);
-                    break;
-                default:
-                    GAME.config[obj] = data[obj];
-            }
-        }
+        GAME.config = Object.assign(GAME.config, data);
     }
+};
+
+GAME.nextPuzzle = function(puzzleName, puzzleDifficulty) {
+
 };
 
 GAME.load();
 
 function __(key) {
-    /* @TODO Need a better check bellow to prevent Phaser to query the cache */
+    /* @TODO Need a better check bellow to prevent Phaser to query the cache when no language file exists */
     if (GAME.game.cache.getJSON("text:" + GAME.config.lang)) {
         let text = GAME.game.cache.getJSON("text:" + GAME.config.lang)[key];
         if (text != null) {

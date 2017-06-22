@@ -36,11 +36,13 @@ GAME.Preload.prototype = {
 
         this.load.json("data:puzzles", "data/puzzles.json");
 
+        /* TODO Better loading :D */
         ["fr"].forEach(function(language) {
             this.load.json("text:" + language, "i18n/" + language + ".json");
         }, this);
     },
     create: function() {
+        GAME.puzzles = this.cache.getJSON("data:puzzles");
         this.state.start("Main");
         //this.state.start("PlayPuzzle");
     }
