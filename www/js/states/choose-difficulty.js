@@ -30,8 +30,13 @@ GAME.ChooseDifficulty.prototype.create = function() {
     };
     puzzle.difficulties.forEach(function(single_difficulty) {
         let button = new PanelButton(this.game, __(single_difficulty.name), colors[single_difficulty.name], {width:200, height:60});
-        /* TODO Fix the current */
-        button.setSubtitle("?? / " + single_difficulty.total);
+
+        let totalCompleted = 0;
+        single_difficulty.puzzles.forEach(function(single_puzzle) {
+            totalCompleted += (GAME.config.puzzles.indexOf(single_puzzle.uid) != -1 ? 1 : 0);
+        }, this);
+
+        button.setSubtitle(totalCompleted + " / " + single_difficulty.total);
         button.difficulty = single_difficulty.name;
         button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + GAME.config.padding.button : 0);
         button.x = (this.game.width - button.width)/2;

@@ -137,13 +137,11 @@ GAME.PlayPuzzle.prototype.popupGameOver = function() {
     this.popup.createTitle(__("You won!"));
     
     /* Save and unlock the next puzzle in this difficulty (if any...) */
-    /* TODO Find the next puzzle, if none ... */
     if (G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid, 1) != null) {
         if (GAME.config.puzzles.indexOf(GAME.config.puzzleUid) == -1) {
             GAME.config.puzzles.push(GAME.config.puzzleUid);
             GAME.save();
         }
-        /* TODO: On the last, show the next difficulty if any... */
         this.popup.addButton(__("Next"), this.popupCloseAndNextLevel, this);
     }
 
