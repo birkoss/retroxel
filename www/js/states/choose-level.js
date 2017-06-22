@@ -55,16 +55,7 @@ GAME.ChooseLevel.prototype.create = function() {
 };
 
 GAME.ChooseLevel.prototype.createLevels = function() {
-    let puzzles = [];
-    GAME.puzzles.forEach(function(single_puzzle) {
-        if (single_puzzle.id == GAME.config.puzzleName) {
-            single_puzzle.difficulties.forEach(function(single_difficulties) {
-                if (single_difficulties.name == GAME.config.puzzleDifficulty) {
-                    puzzles = single_difficulties.puzzles;
-                }
-            }, this);
-        }
-    }, this);
+    let puzzles = D(GAME.config.puzzleName, GAME.config.puzzleDifficulty).puzzles;
 
     let puzzleTotal = puzzles.length;
     this.navigator.setTitle((this.page+1) + " / " + (puzzleTotal/this.limit));
@@ -72,16 +63,11 @@ GAME.ChooseLevel.prototype.createLevels = function() {
 
     let padding = 16;
     let index = (this.page * this.limit);
-    let isLocked = false;
-    /* TODO: BEtter ! */
-    /* Lock the first puzzle of each following page (never on the first page) when they are not unlocked */
-    if (index > 0 && GAME.config.puzzles[GAME.config.puzzleName][GAME.config.puzzleDifficulty].indexOf(index) == -1) {
-        isLocked = true;
-    }
 
     for (let y=0; y<5; y++) {
         for (let x=0; x<4; x++) {
             let puzzle = puzzles[index++];
+            let isLocked = (GAME.config.puzzles.indexOf(puzzle.uid) == -1 && index > 1);
 
             let button = new PanelButton(this.game, (isLocked ? "??" : index), (isLocked ? "Grey" : ""), AnimatedState.Dimension.Panel);
             if (isLocked) {
@@ -93,10 +79,6 @@ GAME.ChooseLevel.prototype.createLevels = function() {
             button.x = x * (button.width + (padding/2));
             button.y = y * (button.height + (padding/2));
             this.levelsContainer.addChild(button);
-
-            if (GAME.config.puzzles.indexOf(puzzle.uid) == -1) {
-                isLocked = true;
-            }
         }
     }
 
@@ -130,7 +112,7 @@ GAME.ChooseLevel.prototype.onBtnBackClicked = function(button) {
 };
 
 GAME.ChooseLevel.prototype.onBtnLevelClicked = function(button) {
-    GAME.config.puzzleUid = button.puzzleUid;;
+    GAME.config.puzzleUid = button.puzzleUid;
     this.hide(this.loadGame, this);
 };
 

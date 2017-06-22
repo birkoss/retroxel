@@ -4,10 +4,6 @@ GAME.PlayPuzzle = function() {};
 
 GAME.PlayPuzzle.prototype = new AnimatedState();
 
-GAME.PlayPuzzle.prototype.preload = function() {
-    this.load.json("data:puzzle", "data/" + GAME.config.puzzleName + "_" + GAME.config.puzzleDifficulty + ".json");
-};
-
 GAME.PlayPuzzle.prototype.create = function() {
     this.game.stage.backgroundColor = 0x333333;
 
@@ -55,9 +51,7 @@ GAME.PlayPuzzle.prototype.create = function() {
 GAME.PlayPuzzle.prototype.createGrid = function() {
     this.puzzle = new PUZZLE[GAME.config.puzzleName]();
 
-    let puzzleData = this.cache.getJSON("data:puzzle").filter(function(puzzle) {
-        return puzzle.uid == this.puzzleUid;
-    }, this)[0];
+    let puzzleData = G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid);
     this.puzzle.init(puzzleData);
 
     this.grid = new Grid(this.game, puzzleData);
@@ -94,10 +88,12 @@ GAME.PlayPuzzle.prototype.stateLoadLevels = function() {
 /* Popup */
 
 GAME.PlayPuzzle.prototype.popupCloseAndNextLevel = function() {
-    /* Save that we are currently at the next puzzle */
-    /* @TODO Find the next puzzle */
-    GAME.config.puzzleLevel++;
-    GAME.save();
+    let nextPuzzleUid = G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid, 1);
+    if (nextPuzzleUid != null) {
+        /* Save that we are currently at the next puzzle */
+        GAME.config.puzzleUid = nextPuzzleUid;
+        GAME.save();
+    }
     this.popup.hide(this.restartLevel.bind(this));
 };
 
@@ -142,7 +138,7 @@ GAME.PlayPuzzle.prototype.popupGameOver = function() {
     
     /* Save and unlock the next puzzle in this difficulty (if any...) */
     /* TODO Find the next puzzle, if none ... */
-    if (GAME.config.puzzleLevel < this.cache.getJSON("data:puzzle").length) {
+    if (G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid, 1) != null) {
         if (GAME.config.puzzles.indexOf(GAME.config.puzzleUid) == -1) {
             GAME.config.puzzles.push(GAME.config.puzzleUid);
             GAME.save();

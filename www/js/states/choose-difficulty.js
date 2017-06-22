@@ -5,12 +5,7 @@ GAME.ChooseDifficulty = function() {};
 GAME.ChooseDifficulty.prototype = new AnimatedState();
 
 GAME.ChooseDifficulty.prototype.create = function() {
-    let puzzle = null;
-    GAME.puzzles.forEach(function(single_puzzle) {
-        if (GAME.config.puzzleName == single_puzzle.id) {
-            puzzle = single_puzzle;
-        }
-    }, this);
+    let puzzle = P(GAME.config.puzzleName);
 
     /* Create the panel */
     this.panelContainer = this.game.add.group();

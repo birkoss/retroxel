@@ -50,6 +50,48 @@ function __(key) {
     return key;
 }
 
+function P(puzzleName) {
+    let item = null;
+    GAME.puzzles.forEach(function(single_puzzle) {
+        if (puzzleName == single_puzzle.id) {
+            item = single_puzzle;
+        }
+    }, this);
+    return item;
+}
+
+function D(puzzleName, puzzleDifficulty) {
+    let item = null;
+    P(puzzleName).difficulties.forEach(function(single_difficulty) {
+        if (puzzleDifficulty == single_difficulty.name) {
+            item = single_difficulty;
+        }
+    }, this);
+    return item;
+}
+
+function G(puzzleName, puzzleDifficulty, gridUid, nextUid) {
+    if (nextUid == null) {
+        nextUid = 0;
+    }
+    let item = null;
+    let puzzles = D(puzzleName, puzzleDifficulty).puzzles;
+
+    puzzles.forEach(function(single_grid, index) {
+        if (single_grid.uid == gridUid) {
+            if (index == 0) {
+                item = single_grid;
+            } else {
+                if (index + nextUid < puzzles.length) {
+                    item = puzzles[index + nextUid];
+                }
+            }
+        }
+    }, this);
+
+    return item;
+}
+
 /* Phaser */
 
 GAME.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, '');
