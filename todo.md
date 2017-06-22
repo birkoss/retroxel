@@ -36,8 +36,3 @@
 * Review the button position in each states
 
 * Translate the Options
-
-* Generate a fake ordered puzzle ID and order the puzzle using that instead
-    * Export/Import
-    * PlayPuzzle (State)
-        * Show that number instead of the UID

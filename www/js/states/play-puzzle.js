@@ -13,7 +13,6 @@ GAME.PlayPuzzle.prototype.create = function() {
 
     this.panel = new Panel(this.game);
     this.panelContainer.addChild(this.panel);
-    this.panel.createTitle("# " + GAME.config.puzzleUid);
 
     let button = new PanelButton(this.game, "<-", "Green", AnimatedState.Dimension.Panel);
     button.onClicked.add(this.popupConfirm, this);
@@ -52,6 +51,8 @@ GAME.PlayPuzzle.prototype.createGrid = function() {
     this.puzzle = new PUZZLE[GAME.config.puzzleName]();
 
     let puzzleData = G(GAME.config.puzzleName, GAME.config.puzzleDifficulty, GAME.config.puzzleUid);
+    console.log(puzzleData);
+    this.panel.createTitle("# " + puzzleData.id);
     this.puzzle.init(puzzleData);
 
     this.grid = new Grid(this.game, puzzleData);
