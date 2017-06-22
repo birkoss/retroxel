@@ -33,7 +33,7 @@ GAME.ChooseDifficulty.prototype.create = function() {
         /* TODO Fix the current */
         button.setSubtitle("?? / " + single_difficulty.total);
         button.difficulty = single_difficulty.name;
-        button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+        button.y = (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + GAME.config.padding.button : 0);
         button.x = (this.game.width - button.width)/2;
         button.onClicked.add(this.onBtnDifficultyClicked, this);
         this.buttonsContainer.addChild(button);

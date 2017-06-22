@@ -3,6 +3,9 @@ var GAME = GAME || {};
 /* Default values */
 GAME.config = {
     speed:800,
+    padding: {
+        button: 16
+    },
     lang:"fr",
     music:false,
     sound:false,
@@ -30,10 +33,6 @@ GAME.load = function() {
 
         GAME.config = Object.assign(GAME.config, data);
     }
-};
-
-GAME.nextPuzzle = function(puzzleName, puzzleDifficulty) {
-
 };
 
 GAME.load();

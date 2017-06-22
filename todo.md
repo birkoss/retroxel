@@ -27,10 +27,6 @@
 
 * Add ambiant music
 
-* Main (state)
-    * Add a new button Options
-        * Toggle language
-        * Toggle MUSIC
-        * Toggle SOUND
+* Confirm it's OK on a 9x15 grid (vertically)
 
-* Review the button position in each states
+* Generate an image for the Snake Puzzle button (ChoosePuzzle)

@@ -35,7 +35,10 @@ GAME.ChoosePuzzle.prototype.create = function() {
             button.setSubtitle(totalCompleted + " / " + totalPuzzle);
             button.setImage("puzzle:" + single_puzzle.id);
             button.puzzle = single_puzzle.id;
-            button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+            button.y = 0;
+            if (this.buttonsContainer.height > 0) {
+                button.y += this.buttonsContainer.height + GAME.config.padding.button;
+            }
             button.x = (this.game.width - button.width)/2;
             button.onClicked.add(this.onBtnPuzzleClicked, this);
             this.buttonsContainer.addChild(button);
@@ -45,9 +48,10 @@ GAME.ChoosePuzzle.prototype.create = function() {
         button = new PanelButton(this.game, __("Coming soon"), "Grey", buttonDimension);
         button.lock();
         button.alpha = 1;
-        button.y = (this.game.height/4*2) - button.height/2 + (this.buttonsContainer.height > 0 ? this.buttonsContainer.height + 36 : 0);
+        button.y = this.buttonsContainer.height + GAME.config.padding.button;
         button.x = (this.game.width - button.width)/2;
         this.buttonsContainer.addChild(button);
+        this.buttonsContainer.y = (this.game.height - this.buttonsContainer.height) / 2;
 
         /* Prepare the animations */
         this.containers.push(this.panelContainer);
